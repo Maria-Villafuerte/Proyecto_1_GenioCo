@@ -43,7 +43,7 @@ fun WelcomeScreen() {
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.SansSerif
             )
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = {  }) {
                 Text(text = "Iniciar sesión")
             }
             Button(onClick = { /*TODO*/ }) {

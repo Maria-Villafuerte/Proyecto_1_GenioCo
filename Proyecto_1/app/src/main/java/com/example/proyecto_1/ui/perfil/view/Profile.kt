@@ -21,7 +21,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,7 +41,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.proyecto_1.models.User
-import com.example.proyecto_1.ui.BottomBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable //Componente de ProfilePage
@@ -61,50 +59,47 @@ fun Editable(icon: ImageVector, text: String){
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfilePage(actualUser: User = User()){
-    Scaffold(bottomBar = { BottomBar() }) {
-        Column(verticalArrangement = Arrangement.Top,
-            modifier = Modifier.fillMaxSize()) {
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.CenterHorizontally)){
-                Image(painter = painterResource(id = actualUser.profileBack),
-                    contentDescription = "Profile back",
-                    contentScale = ContentScale.Crop, // Recorta la imagen,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(300.dp))
-                Image(painter = painterResource(id = actualUser.profilePicture),
-                    contentDescription = "profile picture",
-                    modifier = Modifier
-                        .size(200.dp)
-                        .align(Alignment.BottomCenter) //Ubicación al centro y final
-                        .clip(CircleShape)
-                )
-                Text(text = "Nombre de usuario", color = Color.White,
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter) //Ubicación al centro y final
-                        .padding(bottom = 20.dp), //Espaciado
-                    fontSize = 20.sp, fontFamily = FontFamily.SansSerif,
-                    fontWeight = FontWeight.ExtraBold)
-            }
-            //Elementos en lista
-            Editable(icon = Icons.Outlined.Person, text = "Edit Profile")
-            Editable(icon = Icons.Outlined.Lock, text = "Reset Password")
-            ListItem( //Elemento especial, contiene un botón switch en lugar de botón normal
-                headlineText = { Text(text = "Notifications", fontSize = 15.sp) },
-                trailingContent = {
-                    var checked by remember { mutableStateOf(true) }
-                    Switch(
-                        checked = checked,
-                        onCheckedChange = {
-                            checked = it
-                        }
-                    )
-                },
-                leadingContent = { Icon(Icons.Outlined.Notifications, contentDescription = null) }
+    Column(verticalArrangement = Arrangement.Top,
+        modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .align(Alignment.CenterHorizontally)){
+            Image(painter = painterResource(id = actualUser.profileBack),
+                contentDescription = "Profile back",
+                contentScale = ContentScale.Crop, // Recorta la imagen,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp))
+            Image(painter = painterResource(id = actualUser.profilePicture),
+                contentDescription = "profile picture",
+                modifier = Modifier
+                    .size(200.dp)
+                    .align(Alignment.BottomCenter) //Ubicación al centro y final
+                    .clip(CircleShape)
             )
-            Editable(icon = Icons.Outlined.Edit, text = "Clases")
+            Text(text = "Nombre de usuario", color = Color.White,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter) //Ubicación al centro y final
+                    .padding(bottom = 20.dp), //Espaciado
+                fontSize = 20.sp, fontFamily = FontFamily.SansSerif,
+                fontWeight = FontWeight.ExtraBold)
         }
+        //Elementos en lista
+        Editable(icon = Icons.Outlined.Person, text = "Edit Profile")
+        Editable(icon = Icons.Outlined.Lock, text = "Reset Password")
+        ListItem( //Elemento especial, contiene un botón switch en lugar de botón normal
+            headlineText = { Text(text = "Notifications", fontSize = 15.sp) },
+            trailingContent = {
+                var checked by remember { mutableStateOf(true) }
+                Switch(
+                    checked = checked,
+                    onCheckedChange = {
+                        checked = it
+                    }
+                )
+            },
+            leadingContent = { Icon(Icons.Outlined.Notifications, contentDescription = null) }
+        )
+        Editable(icon = Icons.Outlined.Edit, text = "Clases")
     }
-
 }
