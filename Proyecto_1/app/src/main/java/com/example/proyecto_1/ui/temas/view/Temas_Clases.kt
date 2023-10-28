@@ -41,7 +41,7 @@ import com.example.proyecto_1.ui.materia.view.ClassCard
 @Composable
 fun Temas_Clases() {
     val tema_1 = Temas()
-    val tema_2 = Temas("A",Portada = R.drawable.portada2_clase)
+    val tema_2 = Temas(Portada = R.drawable.portada2_clase)
 
     //TEMAS
     val alltemas_1 = remember {
@@ -54,6 +54,7 @@ fun Temas_Clases() {
             tema_2, tema_2, tema_2, tema_2
         )
     }
+    listOf<String>("AA","AA","WW")
 
 
     //PARCIALES
@@ -104,7 +105,8 @@ fun TemaCard(tema: Temas = Temas()){
             contentDescription = "Portada ilustrativa",
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .fillMaxWidth())
+                .fillMaxWidth()
+        )
 
     }
 }
