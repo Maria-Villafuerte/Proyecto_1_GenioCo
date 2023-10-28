@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,16 +16,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.R
+import com.example.proyecto_1.Navigation.NavigationState
 
-@Preview
 @Composable
-fun WelcomeScreen(navController: NavController = rememberNavController()) {
+fun WelcomeScreen(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.fondo),
@@ -45,19 +44,18 @@ fun WelcomeScreen(navController: NavController = rememberNavController()) {
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.SansSerif
             )
-            Button(onClick = {  }) {
+            Button(onClick = {navController.navigate(route = NavigationState.Login.route)}) {
                 Text(text = "Iniciar sesión")
             }
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = {navController.navigate(route = NavigationState.Register.route) }) {
                 Text(text = "Registrarse")
             }
         }
     }
 }
 
-@Preview
 @Composable
-fun WelcomeLoginScreen() {
+fun WelcomeLoginScreen(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.fondo),
@@ -65,12 +63,10 @@ fun WelcomeLoginScreen() {
             contentScale = ContentScale.FillBounds,
             modifier = Modifier.matchParentSize()
         )
-        Text(
+        TextButton(
             modifier = Modifier.align(Alignment.Center),
-            text = "GenioCo\nBienvenido",
-            fontSize = 40.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.SansSerif
+            content = { Text(text = "GenioCo\nBienvenido")},
+            onClick = {navController.navigate(route = NavigationState.Home.route)}
         )
     }
 }

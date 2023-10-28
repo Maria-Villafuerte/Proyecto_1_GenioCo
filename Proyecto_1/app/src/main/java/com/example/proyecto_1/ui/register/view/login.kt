@@ -1,4 +1,4 @@
-package com.example.proyecto_1.ui.login.view
+package com.example.proyecto_1.ui.register.view
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -13,7 +13,7 @@ import com.example.proyecto_1.Navigation.NavigationState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavController) {
+fun RegisterScreen(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -66,7 +66,7 @@ fun LoginScreen(navController: NavController) {
                 .width(350.dp)
                 .padding(5.dp)
         ) {
-            Text(text = "Iniciar Sesión")
+            Text(text = "Registrarte")
         }
     }
 }

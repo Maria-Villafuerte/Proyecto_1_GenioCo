@@ -3,8 +3,6 @@ package com.example.proyecto_1.ui.temas.view
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,7 +20,6 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -33,10 +30,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.Navigation.AppBar
 import com.example.proyecto_1.R
-import com.example.proyecto_1.models.Clase
 import com.example.proyecto_1.models.Parciales
 import com.example.proyecto_1.models.Temas
-import com.example.proyecto_1.ui.materia.view.ClassCard
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -82,7 +77,7 @@ fun Temas_Clases(navController: NavController = rememberNavController()) {
             }
         }
     }
-    AppBar(title = "Eventos", navController = navController)
+    AppBar(title = "Parciales", navController = navController)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

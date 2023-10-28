@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.proyecto_1.Navigation.AppBar
+import com.example.proyecto_1.Navigation.NavigationState
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.Clase
 
@@ -45,16 +47,17 @@ fun HomeScreen(navController: NavController = rememberNavController()){
             .padding(20.dp)){
         item {
             //Columna deslizable, con elementos generales de clases
-            TopAppBar(title = { Text(text = "Tus clases (～￣▽￣)～")}) }
+            TopAppBar(title = { Text(text = "")}) }
         items(allClasses){clase ->
-            ClassCard(clase)
+            ClassCard(navController, clase)
         }
     }
+    AppBar(title = "Tus clases", navController = navController)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ClassCard(clase: Clase = Clase()){
+fun ClassCard(navController: NavController, clase: Clase = Clase()){
     Card(modifier = Modifier //Especificaciones para visibilidad de carta
         .clip(RoundedCornerShape(3.dp))
         .fillMaxWidth(),

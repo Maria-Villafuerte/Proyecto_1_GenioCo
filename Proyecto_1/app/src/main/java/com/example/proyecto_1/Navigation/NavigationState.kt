@@ -3,10 +3,11 @@ sealed class NavigationState(val route: String) {
     object Temas_Clases: NavigationState("Temas_Clases")
     object ProfileType: NavigationState("ProfileType")
     object Preguntas: NavigationState("Preguntas")
-    object Listado_de_lugares: NavigationState("Listado_de_lugares")
-    object Mi_perfil: NavigationState("Mi_perfil")
-    object Favoritos: NavigationState("Favoritos")
-    object Log_in: NavigationState("Log_in")
-
-
+    object History: NavigationState("historial")
+    object Welcome: NavigationState("welcome")
+    object WelcomeLogin: NavigationState("welcome_login")
+    object Home: NavigationState("HomeScreen")
+    object Login: NavigationState("login") //Login usuario
+    object Register: NavigationState("register")
+    object Felicidades: NavigationState("felicidad")
 }

@@ -11,10 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,13 +26,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.Questions
+import com.example.proyecto_1.Navigation.NavigationState
 import com.example.proyecto_1.ui.theme.Blue
 import com.example.proyecto_1.ui.theme.Green
 import com.example.proyecto_1.ui.theme.Grey
-import com.example.proyecto_1.ui.theme.Pink40
-import com.example.proyecto_1.ui.theme.Pink80
-import com.example.proyecto_1.ui.theme.Purple80
-import com.example.proyecto_1.ui.theme.PurpleGrey80
 import com.example.proyecto_1.ui.theme.Red
 import com.example.proyecto_1.ui.theme.Yellow
 
@@ -68,11 +63,9 @@ fun Preguntas(pregunta: Questions = Questions(),navController: NavController = r
                 .padding(start = 40.dp, end = 40.dp, top = 20.dp, bottom = 20.dp)
                 .background(Grey)
         ) {
-            Text(text = pregunta.pregunta, modifier = Modifier
-                .align(Alignment.Center)
-                .padding(start = 10.dp, end= 10.dp)
-                , textAlign = TextAlign.Center
-            )
+            TextButton(content= {Text(text = pregunta.pregunta)},
+                modifier = Modifier.align(Alignment.Center).padding(start = 10.dp, end= 10.dp),
+                onClick = { navController.navigate(NavigationState.Felicidades.route)})
 
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -103,8 +96,8 @@ fun Preguntas(pregunta: Questions = Questions(),navController: NavController = r
 }
 
 @Composable
-fun nav(opcion: String= String(), pregunta: Questions= Questions()){
-     var S = if (opcion==pregunta.respuesta) {
+fun nav(navController: NavController, opcion: String= String(), pregunta: Questions= Questions()){
+    var S = if (opcion==pregunta.respuesta) {
         "Navegar a Bueno"
     } else {
         "Navegar a malo"
