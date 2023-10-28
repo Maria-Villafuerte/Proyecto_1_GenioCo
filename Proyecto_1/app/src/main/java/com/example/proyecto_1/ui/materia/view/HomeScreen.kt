@@ -24,6 +24,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.Clase
 
@@ -31,7 +33,7 @@ import com.example.proyecto_1.models.Clase
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(){
+fun HomeScreen(navController: NavController = rememberNavController()){
     val defaultClass = Clase()
     val defaultClass2 = Clase(Portada = R.drawable.portada2_clase)
     val allClasses = remember { mutableStateListOf(

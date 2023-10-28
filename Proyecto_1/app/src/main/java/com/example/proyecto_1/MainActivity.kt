@@ -10,6 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.example.proyecto_1.Navigation.Navigation_confi
 import com.example.proyecto_1.ui.theme.Proyecto_1Theme
 
 class MainActivity : ComponentActivity() {
@@ -41,6 +43,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     Proyecto_1Theme {
-        Greeting("Android")
+        val navController = rememberNavController()
+        Navigation_confi(navController)
     }
 }

@@ -40,11 +40,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.models.User
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable //Componente de ProfilePage
-fun Editable(icon: ImageVector, text: String){
+fun Editable(icon: ImageVector, text: String, navController: NavController = rememberNavController()){
     ListItem( //Creación de elemento para lista
         headlineText = { Text(text = text, fontSize = 15.sp) }, //Texto titular
         trailingContent = { //Elemento a la derecha del texto

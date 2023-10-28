@@ -24,10 +24,13 @@ import com.example.proyecto_1.R
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Preview
 @Composable
-fun ProfileType(){
+fun ProfileType(navController: NavController = rememberNavController()){
+
     val blueTone = Color(android.graphics.Color.parseColor("#5668a3"))
     Column(horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()) {

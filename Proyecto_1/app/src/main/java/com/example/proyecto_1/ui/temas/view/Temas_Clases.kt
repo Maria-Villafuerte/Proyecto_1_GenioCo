@@ -29,6 +29,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.proyecto_1.Navigation.AppBar
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.Clase
 import com.example.proyecto_1.models.Parciales
@@ -39,7 +42,7 @@ import com.example.proyecto_1.ui.materia.view.ClassCard
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun Temas_Clases() {
+fun Temas_Clases(navController: NavController = rememberNavController()) {
     val tema_1 = Temas()
     val tema_2 = Temas(Portada = R.drawable.portada2_clase)
 
@@ -65,7 +68,9 @@ fun Temas_Clases() {
     val allparciales = remember { mutableStateListOf(
         parcial_1,parcial_2
     ) }
+
     Scaffold(bottomBar = {  }) {
+
         TopAppBar(title = { Text(text = "Tus Temas") })
         LazyColumn(verticalArrangement = Arrangement.spacedBy(5.dp),
             modifier = Modifier
@@ -77,6 +82,7 @@ fun Temas_Clases() {
             }
         }
     }
+    AppBar(title = "Eventos", navController = navController)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

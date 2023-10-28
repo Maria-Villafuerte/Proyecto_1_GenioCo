@@ -22,13 +22,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.models.Questions
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun AnsweredQuestions(){
+fun AnsweredQuestions(navController: NavController = rememberNavController()){
     val defaultQ = Questions()
     val allQuestions = remember { mutableStateListOf(
         defaultQ, defaultQ, defaultQ, defaultQ

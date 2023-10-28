@@ -24,6 +24,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.Questions
 import com.example.proyecto_1.ui.theme.Blue
@@ -38,7 +40,7 @@ import com.example.proyecto_1.ui.theme.Yellow
 
 
 @Composable
-fun Preguntas(pregunta: Questions = Questions()) {
+fun Preguntas(pregunta: Questions = Questions(),navController: NavController = rememberNavController()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
