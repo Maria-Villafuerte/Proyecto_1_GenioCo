@@ -34,12 +34,20 @@ import com.example.proyecto_1.ui.theme.Red
 import com.example.proyecto_1.ui.theme.Yellow
 
 
+
 @Composable
-fun Preguntas(pregunta: Questions = Questions(),navController: NavController = rememberNavController()) {
+fun Preguntas(navController: NavController = rememberNavController()) {
+    val pregunta = Questions(
+        "Matematicas", "¿Cuál es la derivada de x^2 con respecto de x",
+        "2x",
+        listOf(
+            "2x", "x", "2", "1"
+        )
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 16.dp,start = 16.dp, end = 16.dp)
+            .padding(top = 16.dp, start = 16.dp, end = 16.dp)
     ) {
         Box(
             modifier = Modifier
@@ -64,7 +72,9 @@ fun Preguntas(pregunta: Questions = Questions(),navController: NavController = r
                 .background(Grey)
         ) {
             TextButton(content= {Text(text = pregunta.pregunta)},
-                modifier = Modifier.align(Alignment.Center).padding(start = 10.dp, end= 10.dp),
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(start = 10.dp, end = 10.dp),
                 onClick = { navController.navigate(NavigationState.Felicidades.route)})
 
         }
@@ -79,13 +89,16 @@ fun Preguntas(pregunta: Questions = Questions(),navController: NavController = r
                         .background(colores[index])
                         .padding(start = 40.dp, end = 40.dp)
                         .clickable {
-                            //Función Nav de abajo
+                            var S = if (opciones==pregunta.respuesta) {
+                                navController.navigate(route = NavigationState.Felicidades.route)
+                            } else {
+                                navController.navigate(route = NavigationState.Derrota.route)                            }
                         }
                 ) {
                     Text(
                         opciones, modifier = Modifier
                             .align(Alignment.Center)
-                            .padding(start = 10.dp, end= 10.dp),
+                            .padding(start = 10.dp, end = 10.dp),
                         textAlign = TextAlign.Center
                     )
                 }
@@ -95,16 +108,7 @@ fun Preguntas(pregunta: Questions = Questions(),navController: NavController = r
     }
 }
 
-@Composable
-fun nav(navController: NavController, opcion: String= String(), pregunta: Questions= Questions()){
-    var S = if (opcion==pregunta.respuesta) {
-        "Navegar a Bueno"
-    } else {
-        "Navegar a malo"
-    }
 
-
-}
 @Preview
 @Composable
 fun crear_preguntas() {
@@ -115,5 +119,5 @@ fun crear_preguntas() {
             "2x", "x", "2", "1"
         )
     )
-    Preguntas(Question_1)
+    Preguntas()
 }

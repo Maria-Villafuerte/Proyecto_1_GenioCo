@@ -1,9 +1,12 @@
 package com.example.proyecto_1.Navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.proyecto_1.models.Questions
 import com.example.proyecto_1.ui.bienvenida.view.WelcomeScreen
 import com.example.proyecto_1.ui.bienvenida.view.WelcomeLoginScreen
 import com.example.proyecto_1.ui.login.view.LoginScreen
@@ -12,12 +15,16 @@ import com.example.proyecto_1.ui.preguntas.view.Felicidades
 
 import com.example.proyecto_1.ui.Selection.view.ProfileType
 import com.example.proyecto_1.ui.historial.view.AnsweredQuestions
+import com.example.proyecto_1.ui.perfil.view.ProfilePage
+import com.example.proyecto_1.ui.preguntas.view.Derrota
+import com.example.proyecto_1.ui.preguntas.view.Preguntas
 import com.example.proyecto_1.ui.register.view.RegisterScreen
 import com.example.proyecto_1.ui.temas.view.Temas_Clases
 
 @Composable
 fun Navigation_confi() {
     val navController = rememberNavController()
+    val pregunta = Questions()
     NavHost(navController = navController,
         startDestination = NavigationState.Welcome.route) {
         composable(route = NavigationState.Temas_Clases.route) {
@@ -44,8 +51,18 @@ fun Navigation_confi() {
         composable(route = NavigationState.Felicidades.route){
             Felicidades(navController)
         }
+        composable(route = NavigationState.Derrota.route){
+            Derrota(navController)
+        }
         composable(route = NavigationState.History.route){
             AnsweredQuestions(navController)
         }
+        composable(route = NavigationState.ProfilePage.route){
+            ProfilePage(navController)
+        }
+        composable(route=NavigationState.Preguntas.route){
+            Preguntas(navController)
+        }
     }
+
 }

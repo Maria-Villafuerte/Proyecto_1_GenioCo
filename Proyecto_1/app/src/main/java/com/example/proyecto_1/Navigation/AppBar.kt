@@ -61,7 +61,7 @@ fun AppBar(title: String, navController: NavController) {
                 )
             }
             //Mi_perfil
-            IconButton(onClick = { navController.navigate(route = NavigationState.Temas_Clases.route)}) {
+            IconButton(onClick = { navController.navigate(route = NavigationState.ProfilePage.route)}) {
                 Icon(
                     imageVector = Icons.Rounded.Face,
                     contentDescription = "Localized description"

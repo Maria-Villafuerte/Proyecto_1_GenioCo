@@ -56,7 +56,7 @@ fun ProfileType(navController: NavController = rememberNavController()){
                 modifier = Modifier.size(100.dp))
             Text(text = "\tHistorial", textAlign = TextAlign.Center)
         }
-        Button(onClick = {navController.navigate(route = NavigationState.Temas_Clases.route)},
+        Button(onClick = {navController.navigate(route = NavigationState.Preguntas.route)},
             modifier = Modifier
                 .width(300.dp)
                 .padding(10.dp),
@@ -66,7 +66,7 @@ fun ProfileType(navController: NavController = rememberNavController()){
             Image(painter = painterResource(id = R.mipmap.ic_teachers_foreground),
                 contentDescription = "Teachers ilustration",
                 modifier = Modifier.size(100.dp))
-            Text(text = "\tParciales")
+            Text(text = "\tExámenes")
         }
     }
 }

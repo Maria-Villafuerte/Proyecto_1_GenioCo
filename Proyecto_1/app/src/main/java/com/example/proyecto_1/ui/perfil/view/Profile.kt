@@ -17,6 +17,7 @@ import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -46,7 +47,7 @@ import com.example.proyecto_1.models.User
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable //Componente de ProfilePage
-fun Editable(icon: ImageVector, text: String, navController: NavController = rememberNavController()){
+fun Editable(icon: ImageVector, text: String){
     ListItem( //Creación de elemento para lista
         headlineText = { Text(text = text, fontSize = 15.sp) }, //Texto titular
         trailingContent = { //Elemento a la derecha del texto
@@ -60,7 +61,9 @@ fun Editable(icon: ImageVector, text: String, navController: NavController = rem
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfilePage(actualUser: User = User()){
+fun ProfilePage(navController: NavController = rememberNavController()){
+    val actualUser = User()
+
     Column(verticalArrangement = Arrangement.Top,
         modifier = Modifier.fillMaxSize()) {
         Box(modifier = Modifier
@@ -103,5 +106,13 @@ fun ProfilePage(actualUser: User = User()){
             leadingContent = { Icon(Icons.Outlined.Notifications, contentDescription = null) }
         )
         Editable(icon = Icons.Outlined.Edit, text = "Clases")
+    }
+    IconButton(onClick = { navController.navigateUp() }) {
+        Icon(
+            modifier = Modifier
+                .padding(top=16.dp, start = 7.dp),
+            imageVector = Icons.Rounded.ArrowBack,
+            contentDescription = "Localized description"
+        )
     }
 }

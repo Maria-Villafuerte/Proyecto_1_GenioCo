@@ -61,7 +61,7 @@ fun ClassCard(navController: NavController, clase: Clase = Clase()){
     Card(modifier = Modifier //Especificaciones para visibilidad de carta
         .clip(RoundedCornerShape(3.dp))
         .fillMaxWidth(),
-        onClick = {}) {
+        onClick = { navController.navigate(route = NavigationState.Temas_Clases.route)}) {
         Image(painter = painterResource(id = clase.Portada),
             contentDescription = "Portada ilustrativa",
             contentScale = ContentScale.Crop,

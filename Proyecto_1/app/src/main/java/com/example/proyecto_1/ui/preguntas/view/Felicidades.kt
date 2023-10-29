@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.proyecto_1.Navigation.NavigationState
 import com.example.proyecto_1.R
 
 @Preview
@@ -28,8 +29,8 @@ fun Felicidades(navController: NavController = rememberNavController()){
             modifier = Modifier.matchParentSize()
         )
         Button(onClick = {
-            //REGRESAR
-        }, modifier = Modifier
+            navController.navigate(route = NavigationState.ProfileType.route)
+                         }, modifier = Modifier
             .align(Alignment.TopStart)
             .padding(top = 16.dp, start = 16.dp)) {
             Text(text = "Regresar")
