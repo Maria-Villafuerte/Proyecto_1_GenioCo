@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.proyecto_1.R
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -40,7 +41,7 @@ fun ProfileType(navController: NavController = rememberNavController()){
         modifier = Modifier.fillMaxSize()) {
         AppBar(title = "", navController = navController)
         Text(modifier = Modifier.padding(30.dp), fontWeight = FontWeight.Bold,
-            text = "¿Qué deseas revisar?",
+            text = stringResource(R.string.selesction),
             textAlign = TextAlign.Center,
             fontSize = 30.sp, color = blueTone)
         Spacer(modifier = Modifier.height(10.dp))
@@ -54,7 +55,7 @@ fun ProfileType(navController: NavController = rememberNavController()){
             Image(painter = painterResource(id = R.mipmap.ic_students_foreground),
                 contentDescription = "Students ilustration",
                 modifier = Modifier.size(100.dp))
-            Text(text = "\tHistorial", textAlign = TextAlign.Center)
+            Text(text = "\t"+ stringResource(R.string.hisotrial), textAlign = TextAlign.Center)
         }
         Button(onClick = {navController.navigate(route = NavigationState.Preguntas.route)},
             modifier = Modifier
@@ -66,7 +67,7 @@ fun ProfileType(navController: NavController = rememberNavController()){
             Image(painter = painterResource(id = R.mipmap.ic_teachers_foreground),
                 contentDescription = "Teachers ilustration",
                 modifier = Modifier.size(100.dp))
-            Text(text = "\tExámenes")
+            Text(text = "\t" + stringResource(R.string.exam))
         }
     }
 }

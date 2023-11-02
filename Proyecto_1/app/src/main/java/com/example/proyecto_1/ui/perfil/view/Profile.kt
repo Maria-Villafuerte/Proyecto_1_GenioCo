@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.proyecto_1.R
 import com.example.proyecto_1.models.User
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -82,7 +84,8 @@ fun ProfilePage(navController: NavController = rememberNavController()){
                     .align(Alignment.BottomCenter) //Ubicación al centro y final
                     .clip(CircleShape)
             )
-            Text(text = "Nombre de usuario", color = Color.White,
+            Text(
+                stringResource(R.string.usuario), color = Color.White,
                 modifier = Modifier
                     .align(Alignment.BottomCenter) //Ubicación al centro y final
                     .padding(bottom = 20.dp), //Espaciado
@@ -93,7 +96,7 @@ fun ProfilePage(navController: NavController = rememberNavController()){
         Editable(icon = Icons.Outlined.Person, text = "Edit Profile")
         Editable(icon = Icons.Outlined.Lock, text = "Reset Password")
         ListItem( //Elemento especial, contiene un botón switch en lugar de botón normal
-            headlineText = { Text(text = "Notifications", fontSize = 15.sp) },
+            headlineText = { Text(stringResource(R.string.notificaciones), fontSize = 15.sp) },
             trailingContent = {
                 var checked by remember { mutableStateOf(true) }
                 Switch(

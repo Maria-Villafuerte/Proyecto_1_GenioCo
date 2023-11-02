@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Proyecto_1</string>
+    <string name="bienvenido">Bienvenido</string>
+    <string name="inicio">Iniciar sesión</string>
+    <string name="registro">Registrarse</string>
+
+    <string name="nombre_app">GenioCo</string>
+    <string name="titulo_hisotry">Contenido Estudiado</string>
+    <string name="bienveida_2">¡Bienvenido de nuevo!</string>
+    <string name="correo">Correo Electrónico</string>
+    <string name="contra">Contraseña</string>
+    <string name="contra_1">¿Olvidaste tu contraseña?</string>
+    <string name="titutlo_homesreen">Tus clases</string>
+    <string name="usuario">Nombre de usuario</string>
+
+    <string name="notificaciones">Notifications</string>
+    <string name="regresar">Regresar</string>
+    <string name="datos_1">Ingresa tus datos</string>
+    <string name="selesction">¿Qué deseas revisar?</string>
+    <string name="hisotrial">Historial</string>
+    <string name="exam">Exámenes</string>
+    <string name="titulo_temas">Tus Temas:</string>
+    <string name="parciales">Parciales</string>
+
+
 </resources>

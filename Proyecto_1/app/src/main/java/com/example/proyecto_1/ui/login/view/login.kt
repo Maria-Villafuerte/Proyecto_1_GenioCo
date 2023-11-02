@@ -5,10 +5,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.proyecto_1.R
 import com.example.proyecto_1.navigation.NavigationState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,7 +27,7 @@ fun LoginScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally // Alinea los elementos a la izquierda
     ) {
         Text(
-            text = "¡Bienvenido de nuevo!",
+            text = stringResource(R.string.bienveida_2),
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -39,7 +41,7 @@ fun LoginScreen(navController: NavController) {
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Correo Electrónico") },
+            label = { Text(stringResource(R.string.correo)) },
             modifier = Modifier
                 .width(350.dp)
                 .padding(5.dp)
@@ -48,7 +50,7 @@ fun LoginScreen(navController: NavController) {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Contraseña") },
+            label = { Text(stringResource(R.string.contra))},
             modifier = Modifier
                 .width(350.dp)
                 .padding(5.dp)
@@ -56,7 +58,7 @@ fun LoginScreen(navController: NavController) {
         TextButton(onClick = { /*TODO*/ },
             modifier = Modifier.align(Alignment.End)
                 .height(40.dp))
-        {Text("¿Olvidaste tu contraseña?") }
+        {Text(stringResource(R.string.contra_1)) }
 
         Button(
             onClick = {navController.navigate(route = NavigationState.Home.route)},
@@ -66,7 +68,7 @@ fun LoginScreen(navController: NavController) {
                 .width(350.dp)
                 .padding(5.dp)
         ) {
-            Text(text = "Iniciar Sesión")
+            Text(text = stringResource(R.string.inicio))
         }
     }
 }

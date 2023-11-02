@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -39,16 +40,16 @@ fun WelcomeScreen(navController: NavController) {
             horizontalAlignment = Alignment.Start // Alinea los elementos a la izquierda
         ) {
             Text(
-                text = "Bienvenido",
+                stringResource(R.string.bienvenido),
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.SansSerif
             )
             Button(onClick = {navController.navigate(route = NavigationState.Login.route)}) {
-                Text(text = "Iniciar sesión")
+                Text(stringResource(R.string.inicio))
             }
             Button(onClick = {navController.navigate(route = NavigationState.Register.route) }) {
-                Text(text = "Registrarse")
+                Text(stringResource(R.string.registro))
             }
         }
     }
@@ -65,7 +66,7 @@ fun WelcomeLoginScreen(navController: NavController) {
         )
         TextButton(
             modifier = Modifier.align(Alignment.Center),
-            content = { Text(text = "GenioCo\nBienvenido")},
+            content = { Text(stringResource(R.string.nombre_app)+"\n"+stringResource(R.string.bienvenido))},
             onClick = {navController.navigate(route = NavigationState.Home.route)}
         )
     }

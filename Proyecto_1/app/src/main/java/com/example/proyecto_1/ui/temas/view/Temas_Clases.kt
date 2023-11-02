@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -77,7 +78,7 @@ fun Temas_Clases(navController: NavController = rememberNavController()) {
     ) }
 
     Scaffold() {
-        TopAppBar(title = { Text(text = "Tus Temas:") }, modifier = Modifier
+        TopAppBar(title = { Text(stringResource(R.string.titulo_temas)) }, modifier = Modifier
             .padding(top = 60.dp))
         LazyColumn(verticalArrangement = Arrangement.spacedBy(5.dp),
             modifier = Modifier
@@ -89,7 +90,7 @@ fun Temas_Clases(navController: NavController = rememberNavController()) {
             }
         }
     }
-    AppBar(title = "Parciales", navController = navController)
+    AppBar(title = stringResource(R.string.parciales), navController = navController)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

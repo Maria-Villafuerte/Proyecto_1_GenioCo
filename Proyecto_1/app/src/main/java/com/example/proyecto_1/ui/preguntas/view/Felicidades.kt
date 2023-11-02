@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -33,7 +34,7 @@ fun Felicidades(navController: NavController = rememberNavController()){
                          }, modifier = Modifier
             .align(Alignment.TopStart)
             .padding(top = 16.dp, start = 16.dp)) {
-            Text(text = "Regresar")
+            Text(stringResource(R.string.regresar))
         }
 
     }
