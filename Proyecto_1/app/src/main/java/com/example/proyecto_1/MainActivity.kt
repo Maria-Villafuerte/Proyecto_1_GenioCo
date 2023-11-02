@@ -10,7 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.proyecto_1.Navigation.Navigation_confi
+import com.example.proyecto_1.navigation.Navigation_confi
 import com.example.proyecto_1.ui.theme.Proyecto_1Theme
 
 class MainActivity : ComponentActivity() {

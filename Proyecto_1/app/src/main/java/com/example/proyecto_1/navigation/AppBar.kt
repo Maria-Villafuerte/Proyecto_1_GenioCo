@@ -1,9 +1,8 @@
-package com.example.proyecto_1.Navigation
+package com.example.proyecto_1.navigation
 
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.DateRange
 import androidx.compose.material.icons.rounded.Face
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Info

@@ -26,8 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.proyecto_1.Navigation.AppBar
-import com.example.proyecto_1.Navigation.NavigationState
+import com.example.proyecto_1.navigation.AppBar
+import com.example.proyecto_1.navigation.NavigationState
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.Clase
 

@@ -1,6 +1,4 @@
-package com.example.proyecto_1.Navigation
-
-import com.example.proyecto_1.models.Questions
+package com.example.proyecto_1.navigation
 
 sealed class NavigationState(val route: String) {
     object Temas_Clases: NavigationState("Temas_Clases")

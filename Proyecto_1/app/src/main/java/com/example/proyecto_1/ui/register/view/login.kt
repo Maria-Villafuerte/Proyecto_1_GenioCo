@@ -9,7 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.proyecto_1.Navigation.NavigationState
+import com.example.proyecto_1.navigation.NavigationState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

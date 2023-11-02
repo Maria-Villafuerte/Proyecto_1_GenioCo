@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.proyecto_1.Navigation.NavigationState
+import com.example.proyecto_1.navigation.NavigationState
 import com.example.proyecto_1.R
 
 @Preview

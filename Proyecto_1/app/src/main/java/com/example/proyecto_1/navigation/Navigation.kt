@@ -1,8 +1,6 @@
-package com.example.proyecto_1.Navigation
+package com.example.proyecto_1.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -13,7 +11,7 @@ import com.example.proyecto_1.ui.login.view.LoginScreen
 import com.example.proyecto_1.ui.materia.view.HomeScreen
 import com.example.proyecto_1.ui.preguntas.view.Felicidades
 
-import com.example.proyecto_1.ui.Selection.view.ProfileType
+import com.example.proyecto_1.ui.selection.view.ProfileType
 import com.example.proyecto_1.ui.historial.view.AnsweredQuestions
 import com.example.proyecto_1.ui.perfil.view.ProfilePage
 import com.example.proyecto_1.ui.preguntas.view.Derrota

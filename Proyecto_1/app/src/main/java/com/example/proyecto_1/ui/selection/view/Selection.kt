@@ -1,4 +1,4 @@
-package com.example.proyecto_1.ui.Selection.view
+package com.example.proyecto_1.ui.selection.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -27,8 +27,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.proyecto_1.Navigation.AppBar
-import com.example.proyecto_1.Navigation.NavigationState
+import com.example.proyecto_1.navigation.AppBar
+import com.example.proyecto_1.navigation.NavigationState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview

@@ -26,7 +26,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.Questions
-import com.example.proyecto_1.Navigation.NavigationState
+import com.example.proyecto_1.navigation.NavigationState
 import com.example.proyecto_1.ui.theme.Blue
 import com.example.proyecto_1.ui.theme.Green
 import com.example.proyecto_1.ui.theme.Grey
