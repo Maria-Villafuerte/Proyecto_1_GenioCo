@@ -63,7 +63,7 @@ fun Editable(icon: ImageVector, text: String){
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfilePage(navController: NavController = rememberNavController()){
+fun ProfilePage(navController: NavController = rememberNavController(), userID: String){
     val actualUser = User()
 
     Column(verticalArrangement = Arrangement.Top,

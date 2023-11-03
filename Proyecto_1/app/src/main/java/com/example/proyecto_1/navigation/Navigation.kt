@@ -1,17 +1,18 @@
 package com.example.proyecto_1.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.proyecto_1.models.Questions
+import androidx.navigation.navArgument
 import com.example.proyecto_1.ui.bienvenida.view.WelcomeScreen
 import com.example.proyecto_1.ui.bienvenida.view.WelcomeLoginScreen
 import com.example.proyecto_1.ui.login.view.LoginScreen
 import com.example.proyecto_1.ui.materia.view.HomeScreen
 import com.example.proyecto_1.ui.preguntas.view.Felicidades
 
-import com.example.proyecto_1.ui.selection.view.ProfileType
+import com.example.proyecto_1.ui.selection.view.Selection
 import com.example.proyecto_1.ui.historial.view.AnsweredQuestions
 import com.example.proyecto_1.ui.perfil.view.ProfilePage
 import com.example.proyecto_1.ui.preguntas.view.Derrota
@@ -22,23 +23,10 @@ import com.example.proyecto_1.ui.temas.view.Temas_Clases
 @Composable
 fun Navigation_confi() {
     val navController = rememberNavController()
-    val pregunta = Questions()
     NavHost(navController = navController,
         startDestination = NavigationState.Welcome.route) {
-        composable(route = NavigationState.Temas_Clases.route) {
-            Temas_Clases(navController)
-        }
-        composable(route = NavigationState.ProfileType.route) {
-            ProfileType(navController)
-        }
         composable(route = NavigationState.Welcome.route) {
             WelcomeScreen(navController)
-        }
-        composable(route = NavigationState.WelcomeLogin.route) {
-            WelcomeLoginScreen(navController)
-        }
-        composable(route = NavigationState.Home.route) {
-            HomeScreen(navController)
         }
         composable(route = NavigationState.Login.route) {
             LoginScreen(navController)
@@ -52,15 +40,68 @@ fun Navigation_confi() {
         composable(route = NavigationState.Derrota.route){
             Derrota(navController)
         }
-        composable(route = NavigationState.History.route){
-            AnsweredQuestions(navController)
+        composable( //BIENVENIDA USUARIO
+            route= NavigationState.WelcomeLogin.route,
+            arguments = listOf(navArgument("UserID"){type = NavType.StringType})
+        ){
+            val userID = it.arguments?.getString("UserID")
+            if (userID != null) WelcomeLoginScreen(navController, userID)
         }
-        composable(route = NavigationState.ProfilePage.route){
-            ProfilePage(navController)
+        composable( //HOME
+            route= NavigationState.Home.route,
+            arguments = listOf(navArgument("UserID"){type = NavType.StringType})
+        ){
+            val userID = it.arguments?.getString("UserID")
+            if (userID != null) HomeScreen(navController, userID)
         }
-        composable(route=NavigationState.Preguntas.route){
-            Preguntas(navController)
+        composable( //TEMAS
+            route= NavigationState.TemasClases.route,
+            arguments = listOf(navArgument("ClassID"){type = NavType.StringType})
+        ){
+            val classID = it.arguments?.getString("ClassID")
+            if (classID != null) Temas_Clases(navController, classID)
         }
+        composable( //ELECCIÓN
+            route= NavigationState.Selection.route,
+            arguments = listOf(navArgument("ThemeID"){type = NavType.StringType})
+        ){
+            val themeID = it.arguments?.getString("ThemeID")
+            if (themeID != null) Selection(navController, themeID)
+        }
+        composable( //HISTORIAL
+            route= NavigationState.History.route,
+            arguments = listOf(navArgument("ThemeID"){type = NavType.StringType})
+        ){
+            val themeID = it.arguments?.getString("ThemeID")
+            if (themeID != null) AnsweredQuestions(navController, themeID)
+        }
+        composable( //PREGUNTAS
+                route=NavigationState.Preguntas.route,
+                arguments = listOf(navArgument("ThemeID"){type = NavType.StringType})
+        ){
+        val themeID = it.arguments?.getString("ThemeID")
+        if (themeID != null) Preguntas(navController, themeID)
+    }
+
+        composable( //PERFIL
+            route= NavigationState.ProfilePage.route,
+            arguments = listOf(navArgument("UserID"){type = NavType.StringType})
+        ){
+            val userID = it.arguments?.getString("UserID")
+            if (userID != null) ProfilePage(navController, userID)
+        }
+
     }
 
 }
+
+/**
+ * --> manda
+ * __recibe__
+ *
+ * Inicio de sesion --> idUsuario
+ * __idUsuario__ homescreen --> idClase
+ * __idClase__ temas --> idTema
+ * __idTema__ selection --> idTema
+ * __idTema__ preguntas (hace un loop usando idPregunta)
+ */

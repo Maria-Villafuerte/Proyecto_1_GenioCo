@@ -33,17 +33,25 @@ import com.example.proyecto_1.ui.theme.Grey
 import com.example.proyecto_1.ui.theme.Red
 import com.example.proyecto_1.ui.theme.Yellow
 
-
+val Preguntas_guardadas = arrayListOf(Questions(
+    "1","Matematicas", "¿Cuál es la derivada de x^2 con respecto de x?",
+    "2x",
+    listOf(
+        "2x", "x", "2", "1"
+    )), Questions("2","Lenguaje", "¿Cuál es la derivada de x^2 con respecto de x",
+    "2x",
+    listOf(
+        "2x", "x", "2", "1"
+    )))
 
 @Composable
-fun Preguntas(navController: NavController = rememberNavController()) {
-    val pregunta = Questions(
-        "Matematicas", "¿Cuál es la derivada de x^2 con respecto de x",
-        "2x",
-        listOf(
-            "2x", "x", "2", "1"
-        )
-    )
+fun Preguntas(navController: NavController = rememberNavController(), preguntaID: String = "0") {
+    var pregunta = Questions()
+    for (q in Preguntas_guardadas) {
+        if (preguntaID == q.id) {
+            pregunta = q
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -111,13 +119,6 @@ fun Preguntas(navController: NavController = rememberNavController()) {
 
 @Preview
 @Composable
-fun crear_preguntas() {
-    val Question_1 = Questions(
-        "Matematicas", "¿Cuál es la derivada de x^2 con respecto de x",
-        "2x",
-        listOf(
-            "2x", "x", "2", "1"
-        )
-    )
-    Preguntas()
+fun Crear_preguntas() {
+    Preguntas(preguntaID = "1")
 }

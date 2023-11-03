@@ -41,9 +41,9 @@ import com.example.proyecto_1.models.Temas
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun Temas_Clases(navController: NavController = rememberNavController()) {
+fun Temas_Clases(navController: NavController = rememberNavController(), classID: String="") {
     val Question_1 = Questions(
-        "Matematicas", "¿Cuál es la derivada de x^2 con respecto de x",
+        "0","Matematicas", "¿Cuál es la derivada de x^2 con respecto de x",
         "2x",
         listOf(
             "2x", "x", "2", "1"
@@ -77,7 +77,7 @@ fun Temas_Clases(navController: NavController = rememberNavController()) {
         parcial_1,parcial_2,parcial_3
     ) }
 
-    Scaffold() {
+    Scaffold {
         TopAppBar(title = { Text(stringResource(R.string.titulo_temas)) }, modifier = Modifier
             .padding(top = 60.dp))
         LazyColumn(verticalArrangement = Arrangement.spacedBy(5.dp),
@@ -97,7 +97,7 @@ fun Temas_Clases(navController: NavController = rememberNavController()) {
 @Composable
 fun Row(parcial: Parciales = Parciales(),  navController: NavController){
     Text(text = parcial.Nombre)
-    LazyRow(){
+    LazyRow{
         items(parcial.temas) { Temas ->
             TemaCard(Temas,navController)
         }

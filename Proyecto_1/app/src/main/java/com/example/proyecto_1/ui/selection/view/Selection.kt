@@ -34,7 +34,7 @@ import com.example.proyecto_1.navigation.NavigationState
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun ProfileType(navController: NavController = rememberNavController()){
+fun Selection(navController: NavController = rememberNavController(), themeID: String){
 
     val blueTone = Color(android.graphics.Color.parseColor("#5668a3"))
     Column(horizontalAlignment = Alignment.CenterHorizontally,
@@ -57,7 +57,7 @@ fun ProfileType(navController: NavController = rememberNavController()){
                 modifier = Modifier.size(100.dp))
             Text(text = "\t"+ stringResource(R.string.hisotrial), textAlign = TextAlign.Center)
         }
-        Button(onClick = {navController.navigate(route = NavigationState.Preguntas.route)},
+        Button(onClick = {navController.navigate(route = "Preguntas/0")},
             modifier = Modifier
                 .width(300.dp)
                 .padding(10.dp),

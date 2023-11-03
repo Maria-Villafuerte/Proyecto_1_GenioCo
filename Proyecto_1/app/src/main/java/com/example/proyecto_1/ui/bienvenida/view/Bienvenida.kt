@@ -56,7 +56,7 @@ fun WelcomeScreen(navController: NavController) {
 }
 
 @Composable
-fun WelcomeLoginScreen(navController: NavController) {
+fun WelcomeLoginScreen(navController: NavController, userID: String) {
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.fondo),
