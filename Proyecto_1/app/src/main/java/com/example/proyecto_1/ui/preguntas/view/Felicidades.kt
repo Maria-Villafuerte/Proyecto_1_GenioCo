@@ -30,7 +30,7 @@ fun Felicidades(navController: NavController = rememberNavController()){
             modifier = Modifier.matchParentSize()
         )
         Button(onClick = {
-            navController.navigate(route = NavigationState.ProfileType.route)
+            navController.navigate(route = NavigationState.Selection.route)
                          }, modifier = Modifier
             .align(Alignment.TopStart)
             .padding(top = 16.dp, start = 16.dp)) {

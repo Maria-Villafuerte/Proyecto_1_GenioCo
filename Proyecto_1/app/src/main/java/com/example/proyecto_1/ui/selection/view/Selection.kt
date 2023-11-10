@@ -29,23 +29,22 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.navigation.AppBar
-import com.example.proyecto_1.navigation.NavigationState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun Selection(navController: NavController = rememberNavController(), themeID: String){
+fun Selection(navController: NavController = rememberNavController(), themeID: String = ""){
 
     val blueTone = Color(android.graphics.Color.parseColor("#5668a3"))
     Column(horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()) {
         AppBar(title = "", navController = navController)
         Text(modifier = Modifier.padding(30.dp), fontWeight = FontWeight.Bold,
-            text = stringResource(R.string.selesction),
+            text = stringResource(R.string.selection),
             textAlign = TextAlign.Center,
             fontSize = 30.sp, color = blueTone)
         Spacer(modifier = Modifier.height(10.dp))
-        Button(onClick = { navController.navigate(route = NavigationState.History.route) },
+        Button(onClick = { navController.navigate(route = "historial/$themeID") },
                 modifier = Modifier
                     .width(300.dp)
                     .padding(10.dp),
@@ -57,7 +56,7 @@ fun Selection(navController: NavController = rememberNavController(), themeID: S
                 modifier = Modifier.size(100.dp))
             Text(text = "\t"+ stringResource(R.string.hisotrial), textAlign = TextAlign.Center)
         }
-        Button(onClick = {navController.navigate(route = "Preguntas/0")},
+        Button(onClick = {navController.navigate(route = "Questions/$themeID")},
             modifier = Modifier
                 .width(300.dp)
                 .padding(10.dp),

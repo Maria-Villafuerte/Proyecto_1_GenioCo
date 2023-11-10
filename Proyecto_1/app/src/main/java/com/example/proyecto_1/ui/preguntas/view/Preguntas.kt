@@ -33,7 +33,7 @@ import com.example.proyecto_1.ui.theme.Grey
 import com.example.proyecto_1.ui.theme.Red
 import com.example.proyecto_1.ui.theme.Yellow
 
-val Preguntas_guardadas = arrayListOf(Questions(
+val Preguntas_guardadas = arrayListOf(Questions( //Prueba
     "1","Matematicas", "¿Cuál es la derivada de x^2 con respecto de x?",
     "2x",
     listOf(
@@ -83,7 +83,7 @@ fun Preguntas(navController: NavController = rememberNavController(), preguntaID
                 modifier = Modifier
                     .align(Alignment.Center)
                     .padding(start = 10.dp, end = 10.dp),
-                onClick = { navController.navigate(NavigationState.Felicidades.route)})
+                onClick = { navController.navigate(NavigationState.Congrats.route)})
 
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -98,9 +98,9 @@ fun Preguntas(navController: NavController = rememberNavController(), preguntaID
                         .padding(start = 40.dp, end = 40.dp)
                         .clickable {
                             var S = if (opciones==pregunta.respuesta) {
-                                navController.navigate(route = NavigationState.Felicidades.route)
+                                navController.navigate(route = NavigationState.Congrats.route)
                             } else {
-                                navController.navigate(route = NavigationState.Derrota.route)                            }
+                                navController.navigate(route = NavigationState.Fail.route)                            }
                         }
                 ) {
                     Text(

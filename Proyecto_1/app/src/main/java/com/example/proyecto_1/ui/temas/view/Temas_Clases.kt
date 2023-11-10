@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.navigation.AppBar
-import com.example.proyecto_1.navigation.NavigationState
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.Parciales
 import com.example.proyecto_1.models.Questions
@@ -68,9 +67,9 @@ fun Temas_Clases(navController: NavController = rememberNavController(), classID
 
 
     //PARCIALES
-    val parcial_1 = Parciales("Parcial 1", alltemas_1)
-    val parcial_2 = Parciales("Parcial 2", alltemas_2)
-    val parcial_3 = Parciales("Parcial 3", alltemas_1)
+    val parcial_1 = Parciales("1","Parcial 1", alltemas_1)
+    val parcial_2 = Parciales("2","Parcial 2", alltemas_2)
+    val parcial_3 = Parciales("3","Parcial 3", alltemas_1)
 
     //ARRAY QUE ENTRA A LAZY COLUMN
     val allparciales = remember { mutableStateListOf(
@@ -107,13 +106,13 @@ fun Row(parcial: Parciales = Parciales(),  navController: NavController){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TemaCard(tema: Temas = Temas(),navController: NavController){
+fun TemaCard(tema: Temas = Temas(), navController: NavController){
     Card(modifier = Modifier //Especificaciones para visibilidad de carta
         .clip(RoundedCornerShape(3.dp))
         .width(300.dp)
         .padding(end = 20.dp),
         onClick = {
-            navController.navigate(route = NavigationState.ProfileType.route)
+            navController.navigate(route = "Selection/" + tema.id)
         }
     ) {
         Text(text = tema.Nombre, fontSize = 15.sp,

@@ -36,7 +36,7 @@ import com.example.proyecto_1.models.Questions
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun AnsweredQuestions(navController: NavController = rememberNavController(), themeID: String){
+fun AnsweredQuestions(navController: NavController = rememberNavController(), themeID: String = ""){
     val defaultQ = Questions()
     val allQuestions = remember { mutableStateListOf(
         defaultQ, defaultQ, defaultQ, defaultQ

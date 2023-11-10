@@ -36,7 +36,7 @@ import com.example.proyecto_1.models.Clase
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController = rememberNavController(), userID: String){
+fun HomeScreen(navController: NavController = rememberNavController(), userID: String = ""){
     val defaultClass = Clase()
     val defaultClass2 = Clase(Portada = R.drawable.portada2_clase)
     val allClasses = remember { mutableStateListOf(
@@ -62,7 +62,7 @@ fun ClassCard(navController: NavController, clase: Clase = Clase()){
     Card(modifier = Modifier //Especificaciones para visibilidad de carta
         .clip(RoundedCornerShape(3.dp))
         .fillMaxWidth(),
-        onClick = { navController.navigate(route = NavigationState.TemasClases.route)}) {
+        onClick = { navController.navigate(route = NavigationState.Topics.route)}) {
         Image(painter = painterResource(id = clase.Portada),
             contentDescription = "Portada ilustrativa",
             contentScale = ContentScale.Crop,

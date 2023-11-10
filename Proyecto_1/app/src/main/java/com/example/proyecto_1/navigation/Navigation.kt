@@ -25,21 +25,23 @@ fun Navigation_confi() {
     val navController = rememberNavController()
     NavHost(navController = navController,
         startDestination = NavigationState.Welcome.route) {
-        composable(route = NavigationState.Welcome.route) {
+        //Elementos sin parámetros
+        composable(route = NavigationState.Welcome.route) {//Bienvenida
             WelcomeScreen(navController)
         }
-        composable(route = NavigationState.Login.route) {
+        composable(route = NavigationState.Login.route) {//Inicio de sesión
             LoginScreen(navController)
         }
-        composable(route = NavigationState.Register.route){
+        composable(route = NavigationState.Register.route){//Registro
             RegisterScreen(navController)
         }
-        composable(route = NavigationState.Felicidades.route){
+        composable(route = NavigationState.Congrats.route){//Pregunta correcta
             Felicidades(navController)
         }
-        composable(route = NavigationState.Derrota.route){
+        composable(route = NavigationState.Fail.route){//Pregunta incorrecta
             Derrota(navController)
         }
+        //Elementos que necesitan el paso de información
         composable( //BIENVENIDA USUARIO
             route= NavigationState.WelcomeLogin.route,
             arguments = listOf(navArgument("UserID"){type = NavType.StringType})
@@ -55,13 +57,13 @@ fun Navigation_confi() {
             if (userID != null) HomeScreen(navController, userID)
         }
         composable( //TEMAS
-            route= NavigationState.TemasClases.route,
+            route= NavigationState.Topics.route,
             arguments = listOf(navArgument("ClassID"){type = NavType.StringType})
         ){
             val classID = it.arguments?.getString("ClassID")
             if (classID != null) Temas_Clases(navController, classID)
         }
-        composable( //ELECCIÓN
+        composable( //ELECCIÓN (historial o quiz)
             route= NavigationState.Selection.route,
             arguments = listOf(navArgument("ThemeID"){type = NavType.StringType})
         ){
@@ -76,13 +78,12 @@ fun Navigation_confi() {
             if (themeID != null) AnsweredQuestions(navController, themeID)
         }
         composable( //PREGUNTAS
-                route=NavigationState.Preguntas.route,
+                route=NavigationState.Questions.route,
                 arguments = listOf(navArgument("ThemeID"){type = NavType.StringType})
         ){
         val themeID = it.arguments?.getString("ThemeID")
         if (themeID != null) Preguntas(navController, themeID)
-    }
-
+        }
         composable( //PERFIL
             route= NavigationState.ProfilePage.route,
             arguments = listOf(navArgument("UserID"){type = NavType.StringType})

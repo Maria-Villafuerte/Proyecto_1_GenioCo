@@ -46,14 +46,14 @@ fun AppBar(title: String, navController: NavController) {
                 )
             }
             //Detalle
-            IconButton(onClick = { navController.navigate(route = NavigationState.ProfileType.route)}) {
+            IconButton(onClick = { navController.navigate(route = NavigationState.Selection.route)}) {
                 Icon(
                     imageVector = Icons.Rounded.Info,
                     contentDescription = "Localized description"
                 )
             }
             //Listado_de_lugares
-            IconButton(onClick = { navController.navigate(route = NavigationState.ProfileType.route) }) {
+            IconButton(onClick = { navController.navigate(route = NavigationState.Selection.route) }) {
                 Icon(
                     imageVector = Icons.Rounded.Star,
                     contentDescription = "Localized description"

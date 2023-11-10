@@ -67,7 +67,7 @@ fun WelcomeLoginScreen(navController: NavController, userID: String) {
         TextButton(
             modifier = Modifier.align(Alignment.Center),
             content = { Text(stringResource(R.string.nombre_app)+"\n"+stringResource(R.string.bienvenido))},
-            onClick = {navController.navigate(route = NavigationState.Home.route)}
+            onClick = {navController.navigate(route = "HomeScreen/$userID")}
         )
     }
 }

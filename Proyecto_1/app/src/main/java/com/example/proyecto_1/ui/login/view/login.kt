@@ -11,7 +11,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyecto_1.R
-import com.example.proyecto_1.navigation.NavigationState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,9 +58,9 @@ fun LoginScreen(navController: NavController) {
             modifier = Modifier.align(Alignment.End)
                 .height(40.dp))
         {Text(stringResource(R.string.contra_1)) }
-
+        val userID = ""//PENDIENTE REVISAR OBTENCION DE ID DE USUARIO
         Button(
-            onClick = {navController.navigate(route = NavigationState.Home.route)},
+            onClick = {navController.navigate(route = "HomeScreen/$userID")},
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
