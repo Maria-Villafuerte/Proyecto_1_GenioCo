@@ -68,19 +68,17 @@ fun prueba_datos(){
                 .fillMaxWidth()
                 .padding(16.dp)
         )
+
         val context = LocalContext.current
         Button(
             onClick = {
                 val usersRef = database.reference.child("Usuarios")
                 val userRef = usersRef.child(name)
-                val usuario = User(id,name,mail,password, Clases = clases)
+                val usuario = User(id,name)
                 userRef.setValue(usuario)
                 Toast.makeText(context, "Save user", Toast.LENGTH_SHORT).show()
                 name = ""
                 id = ""
-                mail = ""
-                password= ""
-                inputText= ""
             },
             modifier = Modifier.padding(30.dp)
         ) {
