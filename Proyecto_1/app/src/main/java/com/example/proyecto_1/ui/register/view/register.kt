@@ -1,21 +1,29 @@
 package com.example.proyecto_1.ui.register.view
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyecto_1.R
+import com.example.proyecto_1.models.Clase
+import com.example.proyecto_1.models.User
 import com.example.proyecto_1.navigation.NavigationState
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(navController: NavController) {
+    val database = Firebase.database
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -41,9 +49,7 @@ fun RegisterScreen(navController: NavController) {
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = {
-                stringResource(R.string.correo)
-                    },
+            label = {Text(stringResource(R.string.correo)) },
             modifier = Modifier
                 .width(350.dp)
                 .padding(5.dp)
@@ -61,9 +67,19 @@ fun RegisterScreen(navController: NavController) {
             modifier = Modifier.align(Alignment.End)
                 .height(40.dp))
         {Text(stringResource(R.string.contra_1)) }
+        val context = LocalContext.current
 
         Button(
-            onClick = {navController.navigate(route = NavigationState.Home.route)},
+            onClick = {
+                val usersRef = database.reference.child("Usuarios")
+                val userRef = usersRef.child(email)
+                val usuario = User(email,password)
+                userRef.setValue(usuario)
+                Toast.makeText(context, "Save user", Toast.LENGTH_SHORT).show()
+                email = ""
+                password = ""
+                navController.navigate(route = NavigationState.Home.route)
+                      },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
@@ -71,6 +87,12 @@ fun RegisterScreen(navController: NavController) {
                 .padding(5.dp)
         ) {
             Text(stringResource(R.string.registro))
+
         }
+
     }
+}
+@Composable
+fun DialogBox2FA() {
+
 }

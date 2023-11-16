@@ -7,4 +7,6 @@ data class User(var id:String = "0",
                 var mail: String = "blabla@gmail.com",
                 var password: String = "1234",
                 var profilePicture: Int = R.mipmap.ic_students_foreground,
-                var profileBack: Int = R.drawable.profile_back)
+                var profileBack: Int = R.drawable.profile_back,
+                var Clases: List<Clase> = listOf()
+)
