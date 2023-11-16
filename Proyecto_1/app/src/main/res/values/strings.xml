@@ -4,6 +4,11 @@
     <string name="inicio">Iniciar sesión</string>
     <string name="registro">Registrarse</string>
 
+    <string name="registrado">Usuario registrado</string>
+    <string name="noData">No existen datos</string>
+    <string name="cambio_registro">¿Aún no tienes una cuenta? Registrate</string>
+    <string name="cambio_inicio">¿Ya tienes una cuenta? Inicia Sesión</string>
+
     <string name="nombre_app">GenioCo</string>
     <string name="titulo_hisotry">Contenido Estudiado</string>
     <string name="bienveida_2">¡Bienvenido de nuevo!</string>
@@ -13,7 +18,10 @@
     <string name="titutlo_homesreen">Tus clases</string>
     <string name="usuario">Nombre de usuario</string>
 
+    <string name="editar_usuario">Editar Perfil</string>
+    <string name="editar_contraseña">Cambiar contraseña</string>
     <string name="notificaciones">Notifications</string>
+
     <string name="regresar">Regresar</string>
     <string name="datos_1">Ingresa tus datos</string>
     <string name="selection">¿Qué deseas revisar?</string>

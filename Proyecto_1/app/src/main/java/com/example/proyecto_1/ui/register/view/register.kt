@@ -2,24 +2,17 @@ package com.example.proyecto_1.ui.register.view
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyecto_1.R
-import com.example.proyecto_1.models.Clase
 import com.example.proyecto_1.models.User
 import com.example.proyecto_1.navigation.NavigationState
 import com.google.firebase.Firebase
@@ -37,7 +30,6 @@ fun RegisterScreen(navController: NavController) {
     var name by remember { mutableStateOf("") }
     var total_datos by remember { mutableStateOf("") }
 
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -51,11 +43,13 @@ fun RegisterScreen(navController: NavController) {
             fontWeight = FontWeight.Bold,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
+
         Text(
             stringResource(R.string.datos_1),
             fontSize = 14.sp,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
+
         OutlinedTextField(
             value = name,
             onValueChange = {newText -> name = newText},
@@ -73,7 +67,6 @@ fun RegisterScreen(navController: NavController) {
                 .width(350.dp)
                 .padding(5.dp)
         )
-
 
         OutlinedTextField(
             value = password,
@@ -94,8 +87,8 @@ fun RegisterScreen(navController: NavController) {
         usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 // El recuento total de nodos bajo "Usuarios"
-                val totalDatos = snapshot.childrenCount.toString()
-                total_datos= totalDatos
+                val totalDatos = snapshot.childrenCount.toInt()
+                total_datos = (totalDatos + 1).toString()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -103,19 +96,21 @@ fun RegisterScreen(navController: NavController) {
                 println("Error al obtener el recuento: ${error.message}")
             }
         })
+        val savedUsertext = stringResource(R.string.registrado)
+        val nodata = stringResource(R.string.noData)
         Button(
             onClick = {
-                val userRef = usersRef.child(total_datos)  //Pone Id
+                val userRef = usersRef.child(total_datos)
+                val userID = total_datos
                 val usuario = User(id = total_datos,name=name,mail = email, password = password)
-
-                //Guarda el dato como un hijo del total que se rige por Email
+                //Guarda el dato como un hijo del total que se rige por id
                 if (usuario.name != "") {
                     userRef.setValue(usuario)
-                    Toast.makeText(context, "Save user" , Toast.LENGTH_SHORT).show()
-
+                    Toast.makeText(context, savedUsertext , Toast.LENGTH_SHORT).show()
+                    navController.navigate("welcome_login/$userID")
                 }
                 else {
-                    Toast.makeText(context, "No existen datos" , Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, nodata , Toast.LENGTH_SHORT).show()
                 }
                 total_datos = ""
                 email = ""
@@ -131,12 +126,15 @@ fun RegisterScreen(navController: NavController) {
         ) {
             Text(stringResource(R.string.registro))
         }
-
+        TextButton(onClick = {navController.navigate(route = NavigationState.Login.route)},
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+                .height(40.dp))
+        {Text(stringResource(R.string.cambio_inicio)) }
 
     }
 }
 
-// navController.navigate(route = NavigationState.Home.route)
+//
 
 
 

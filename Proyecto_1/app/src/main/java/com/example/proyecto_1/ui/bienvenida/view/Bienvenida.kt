@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -65,8 +66,11 @@ fun WelcomeLoginScreen(navController: NavController, userID: String) {
             modifier = Modifier.matchParentSize()
         )
         TextButton(
-            modifier = Modifier.align(Alignment.Center),
-            content = { Text(stringResource(R.string.nombre_app)+"\n"+stringResource(R.string.bienvenido))},
+            modifier = Modifier.align(Alignment.Center).size(300.dp),
+            content = {
+                Text(
+                    text=stringResource(R.string.nombre_app)+"\n\n"+stringResource(R.string.bienvenido),
+                    fontSize = 40.sp)},
             onClick = {navController.navigate(route = "HomeScreen/$userID")}
         )
     }

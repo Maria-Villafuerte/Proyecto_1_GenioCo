@@ -93,8 +93,8 @@ fun ProfilePage(navController: NavController = rememberNavController(), userID: 
                 fontWeight = FontWeight.ExtraBold)
         }
         //Elementos en lista
-        Editable(icon = Icons.Outlined.Person, text = "Edit Profile")
-        Editable(icon = Icons.Outlined.Lock, text = "Reset Password")
+        Editable(icon = Icons.Outlined.Person, text = stringResource(R.string.editar_usuario))
+        Editable(icon = Icons.Outlined.Lock, text = stringResource(R.string.editar_contraseña))
         ListItem( //Elemento especial, contiene un botón switch en lugar de botón normal
             headlineText = { Text(stringResource(R.string.notificaciones), fontSize = 15.sp) },
             trailingContent = {
@@ -108,7 +108,7 @@ fun ProfilePage(navController: NavController = rememberNavController(), userID: 
             },
             leadingContent = { Icon(Icons.Outlined.Notifications, contentDescription = null) }
         )
-        Editable(icon = Icons.Outlined.Edit, text = "Clases")
+        Editable(icon = Icons.Outlined.Edit, text = "titutlo_homesreen")
     }
     IconButton(onClick = { navController.navigateUp() }) {
         Icon(

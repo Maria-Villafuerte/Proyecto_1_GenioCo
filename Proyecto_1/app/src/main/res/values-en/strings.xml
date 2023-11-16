@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Project_1</string>
+    <string name="bienvenido">Welcome</string>
+    <string name="inicio">Sign In</string>
+    <string name="registro">Register</string>
+
+    <string name="registrado">User saved</string>
+    <string name="noData">No data to save</string>
+    <string name="cambio_registro">Do not have an account yet? Register</string>
+    <string name="cambio_inicio">Already have an account? Sign in</string>
+
+    <string name="nombre_app">GenioCo</string>
+    <string name="titulo_hisotry">Studied Content</string>
+    <string name="bienveida_2">Welcome Back!</string>
+    <string name="correo">Email</string>
+    <string name="contra">Password</string>
+    <string name="contra_1">Forgot Your Password?</string>
+    <string name="titutlo_homesreen">Your Classes</string>
+    <string name="usuario">Username</string>
+
+    <string name="editar_usuario">Edit Profile</string>
+    <string name="editar_contraseña">Change Password</string>
+    <string name="notificaciones">Notifications</string>
+
+    <string name="regresar">Back</string>
+    <string name="datos_1">Enter Your Details</string>
+    <string name="selection">What do you want to review?</string>
+    <string name="hisotrial">History</string>
+    <string name="exam">Exams</string>
+    <string name="titulo_temas">Your Topics:</string>
+    <string name="parciales">Partial Exams</string>
+
+</resources>

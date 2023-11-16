@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyecto_1.R
+import com.example.proyecto_1.navigation.NavigationState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,7 +33,7 @@ fun LoginScreen(navController: NavController) {
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Text(
-            text = "Ingresa tus datos",
+            text = stringResource(R.string.datos_1),
             fontSize = 14.sp,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
@@ -58,9 +59,9 @@ fun LoginScreen(navController: NavController) {
             modifier = Modifier.align(Alignment.End)
                 .height(40.dp))
         {Text(stringResource(R.string.contra_1)) }
-        val userID = ""//PENDIENTE REVISAR OBTENCION DE ID DE USUARIO
+        val userID = "abc"//PENDIENTE REVISAR OBTENCION DE ID DE USUARIO
         Button(
-            onClick = {navController.navigate(route = "HomeScreen/$userID")},
+            onClick = {navController.navigate(route = "welcome_login/$userID")},
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
@@ -69,5 +70,9 @@ fun LoginScreen(navController: NavController) {
         ) {
             Text(text = stringResource(R.string.inicio))
         }
+        TextButton(onClick = {navController.navigate(route = NavigationState.Register.route) },
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+                .height(40.dp))
+        {Text(stringResource(R.string.cambio_registro)) }
     }
 }

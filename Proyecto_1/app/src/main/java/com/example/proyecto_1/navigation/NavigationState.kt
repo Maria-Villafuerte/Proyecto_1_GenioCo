@@ -6,13 +6,11 @@ sealed class NavigationState(val route: String) {
     object Register: NavigationState("register")
     object Congrats: NavigationState("felicidad")
     object Fail: NavigationState("Derrota")
-    object WelcomeLogin: NavigationState("welcome_login/{user}")
-    object Home: NavigationState("HomeScreen/{user}")
-    object ProfilePage: NavigationState("ProfilePage/{user}")
-    object Topics: NavigationState("Topics/{clase}")
-    object Selection: NavigationState("Selection/{tema}")
-    object Questions: NavigationState("Questions/{tema}")
-    object History: NavigationState("historial/{tema}")
-
-
+    object WelcomeLogin: NavigationState("welcome_login/{userID}")
+    object Home: NavigationState("HomeScreen/{userID}")
+    object ProfilePage: NavigationState("ProfilePage/{userID}")
+    object Topics: NavigationState("Topics/{classID}")
+    object Selection: NavigationState("Selection/{themeID}")
+    object Questions: NavigationState("Questions/{themeID}")
+    object History: NavigationState("historial/{themeID}")
 }
