@@ -22,27 +22,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.proyecto_1.R
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.navigation.AppBar
+import com.example.proyecto_1.ui.theme.Bluetone
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun Selection(navController: NavController = rememberNavController(), themeID: String = ""){
-
-    val blueTone = Color(android.graphics.Color.parseColor("#5668a3"))
     Column(horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()) {
         AppBar(title = "", navController = navController)
         Text(modifier = Modifier.padding(30.dp), fontWeight = FontWeight.Bold,
             text = stringResource(R.string.selection),
             textAlign = TextAlign.Center,
-            fontSize = 30.sp, color = blueTone)
+            fontSize = 30.sp, color = Bluetone)
         Spacer(modifier = Modifier.height(10.dp))
         Button(onClick = { navController.navigate(route = "historial/$themeID") },
                 modifier = Modifier
@@ -50,8 +48,8 @@ fun Selection(navController: NavController = rememberNavController(), themeID: S
                     .padding(10.dp),
                 contentPadding = PaddingValues(20.dp),
                 shape = RoundedCornerShape(20.dp),
-                colors = ButtonDefaults.buttonColors(blueTone)) {
-            Image(painter = painterResource(id = R.mipmap.ic_students_foreground),
+                colors = ButtonDefaults.buttonColors(Bluetone)) {
+            Image(painter = painterResource(id = R.mipmap.ic_history_foreground),
                 contentDescription = "Students ilustration",
                 modifier = Modifier.size(100.dp))
             Text(text = "\t"+ stringResource(R.string.hisotrial), textAlign = TextAlign.Center)
@@ -62,8 +60,8 @@ fun Selection(navController: NavController = rememberNavController(), themeID: S
                 .padding(10.dp),
             contentPadding = PaddingValues(20.dp),
             shape = RoundedCornerShape(20.dp),
-            colors = ButtonDefaults.buttonColors(blueTone)){
-            Image(painter = painterResource(id = R.mipmap.ic_teachers_foreground),
+            colors = ButtonDefaults.buttonColors(Bluetone)){
+            Image(painter = painterResource(id = R.mipmap.ic_question_foreground),
                 contentDescription = "Teachers ilustration",
                 modifier = Modifier.size(100.dp))
             Text(text = "\t" + stringResource(R.string.exam))

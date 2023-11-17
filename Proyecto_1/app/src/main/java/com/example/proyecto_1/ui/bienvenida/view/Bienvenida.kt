@@ -1,23 +1,25 @@
 package com.example.proyecto_1.ui.bienvenida.view
 
+import android.os.Handler
+import android.os.Looper
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -58,20 +60,24 @@ fun WelcomeScreen(navController: NavController) {
 
 @Composable
 fun WelcomeLoginScreen(navController: NavController, userID: String) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Image(
             painter = painterResource(id = R.drawable.fondo),
             contentDescription = "books decoration",
             contentScale = ContentScale.FillBounds,
             modifier = Modifier.matchParentSize()
         )
-        TextButton(
-            modifier = Modifier.align(Alignment.Center).size(300.dp),
-            content = {
-                Text(
-                    text=stringResource(R.string.nombre_app)+"\n\n"+stringResource(R.string.bienvenido),
-                    fontSize = 40.sp)},
-            onClick = {navController.navigate(route = "HomeScreen/$userID")}
-        )
+        Text(textAlign = TextAlign.Center,
+            text=stringResource(R.string.nombre_app)+"\n\n"+stringResource(R.string.bienvenido),
+            fontSize = 40.sp, fontWeight = FontWeight.ExtraBold,
+            color = Color(R.color.teal_700))
+
+        // Aparecer por medio segundo y transicionar a la siguiente pantalla
+        val handler = Handler(Looper.getMainLooper())
+        val delayMillis: Long = 500 // 1 segundo
+
+        handler.postDelayed({
+            navController.navigate(route = "HomeScreen/$userID")
+        }, delayMillis)
     }
 }
