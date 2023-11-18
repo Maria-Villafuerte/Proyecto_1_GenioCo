@@ -12,6 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.proyecto_1.Networking.Realtime_Manager
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.User
 import com.example.proyecto_1.navigation.NavigationState
@@ -83,6 +84,7 @@ fun RegisterScreen(navController: NavController) {
         val context = LocalContext.current
         val openAlertDialog = remember { mutableStateOf(false) }
         val usersRef = database.reference.child("Usuarios")
+        val realtime: Realtime_Manager = Realtime_Manager()
 
         usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -100,18 +102,24 @@ fun RegisterScreen(navController: NavController) {
         val nodata = stringResource(R.string.noData)
         Button(
             onClick = {
-                val userRef = usersRef.child(total_datos)
+
                 val userID = total_datos
+
                 val usuario = User(id = total_datos,name=name,mail = email, password = password)
                 //Guarda el dato como un hijo del total que se rige por id
                 if (usuario.name != "") {
-                    userRef.setValue(usuario)
+                    realtime.addContact(usuario)
+                  //  userRef.setValue(usuario)
                     Toast.makeText(context, savedUsertext , Toast.LENGTH_SHORT).show()
                     navController.navigate("welcome_login/$userID")
                 }
                 else {
                     Toast.makeText(context, nodata , Toast.LENGTH_SHORT).show()
                 }
+
+
+
+                navController.navigate("welcome_login/$userID")
                 total_datos = ""
                 email = ""
                 password = ""
