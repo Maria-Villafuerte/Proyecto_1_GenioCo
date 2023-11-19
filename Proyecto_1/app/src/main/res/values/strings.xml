@@ -15,14 +15,27 @@
     <string name="correo">Correo Electrónico</string>
     <string name="contra">Contraseña</string>
     <string name="contra_1">¿Olvidaste tu contraseña?</string>
-    <string name="titutlo_homesreen">Tus clases</string>
+    <string name="titulo_homescreen">Tus clases</string>
     <string name="usuario">Nombre de usuario</string>
+
+    <string name="clases">No hay clases para mostrar</string>
+    <string name="temas">No hay temas para mostrar</string>
+    <string name="Mparciales">No hay parciales para mostrar</string>
 
     <string name="editar_usuario">Editar Perfil</string>
     <string name="editar_contraseña">Cambiar contraseña</string>
     <string name="notificaciones">Notifications</string>
+    <string name="salir">Cerrar Sesión</string>
+
+    <string name="felicidades">¡Correcto!</string>
+    <string name="derrota">Incorrecto</string>
+    <string name="feli_support">Sigue así</string>
+    <string name="derrota_support">Ten cuidado</string>
+    <string name="completado">Se ha completado el cuestionario</string>
 
     <string name="regresar">Regresar</string>
+    <string name="siguiente">Siguiente</string>
+
     <string name="datos_1">Ingresa tus datos</string>
     <string name="selection">¿Qué deseas revisar?</string>
     <string name="hisotrial">Historial</string>

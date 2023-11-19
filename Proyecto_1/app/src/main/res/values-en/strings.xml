@@ -16,14 +16,27 @@
     <string name="correo">Email</string>
     <string name="contra">Password</string>
     <string name="contra_1">Forgot Your Password?</string>
-    <string name="titutlo_homesreen">Your Classes</string>
+    <string name="titulo_homescreen">Your Classes</string>
     <string name="usuario">Username</string>
+
+    <string name="clases">No classes to show</string>
+    <string name="temas">No topics to show</string>
+    <string name="Mparciales">No quizzes to show</string>
 
     <string name="editar_usuario">Edit Profile</string>
     <string name="editar_contraseña">Change Password</string>
     <string name="notificaciones">Notifications</string>
+    <string name="salir">Log out</string>
+
+    <string name="felicidades">Correct!</string>
+    <string name="derrota">Incorrect</string>
+    <string name="feli_support">Keep it up</string>
+    <string name="derrota_support">Be careful</string>
+    <string name="completado">Quiz finished</string>
 
     <string name="regresar">Back</string>
+    <string name="siguiente">Next</string>
+
     <string name="datos_1">Enter Your Details</string>
     <string name="selection">What do you want to review?</string>
     <string name="hisotrial">History</string>

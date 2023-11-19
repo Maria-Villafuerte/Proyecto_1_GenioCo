@@ -10,11 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -31,40 +28,35 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.Questions
+import com.example.proyecto_1.navigation.AppBar
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun AnsweredQuestions(navController: NavController = rememberNavController(), themeID: String = ""){
+fun AnsweredQuestions(navController: NavController = rememberNavController(), userID: String="", classID: String="", themeID: String = ""){
     val defaultQ = Questions()
     val allQuestions = remember { mutableStateListOf(
         defaultQ, defaultQ, defaultQ, defaultQ
     ) }
-
-    Column(modifier = Modifier.padding(15.dp)){
-        TopAppBar(title = { Text(stringResource(R.string.titulo_hisotry))})
-        LazyVerticalGrid(columns = GridCells.Fixed(2),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)){
-            items(allQuestions) {pregunta ->
-                Box(modifier = Modifier
-                    .background(Color.Gray)
-                    .height(200.dp),
-                    contentAlignment = Alignment.Center
-                ){
-                    Text(text = pregunta.materia + "\n" + pregunta.pregunta + "\n" + pregunta.respuesta,
-                        fontSize = 10.sp)
+    Scaffold(
+        topBar = { AppBar(stringResource(R.string.titulo_homescreen), navController= navController, userID= userID) }) {
+        Column(modifier = Modifier.padding(15.dp)){
+            TopAppBar(title = { Text(stringResource(R.string.titulo_hisotry))})
+            LazyVerticalGrid(columns = GridCells.Fixed(2),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp)){
+                items(allQuestions) {pregunta ->
+                    Box(modifier = Modifier
+                        .background(Color.Gray)
+                        .height(200.dp),
+                        contentAlignment = Alignment.Center
+                    ){
+                        Text(text = pregunta.materia + "\n" + pregunta.pregunta + "\n" + pregunta.respuesta,
+                            fontSize = 10.sp)
+                    }
                 }
             }
         }
-    }
-    IconButton(onClick = { navController.navigateUp() }) {
-        Icon(
-            modifier = Modifier
-                .padding(top=16.dp, start = 7.dp),
-            imageVector = Icons.Rounded.ArrowBack,
-            contentDescription = "Localized description"
-        )
     }
 }

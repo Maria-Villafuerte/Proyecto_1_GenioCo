@@ -35,12 +35,7 @@ fun Navigation_confi() {
         composable(route = NavigationState.Register.route){//Registro
             RegisterScreen(navController)
         }
-        composable(route = NavigationState.Congrats.route){//Pregunta correcta
-            Felicidades(navController)
-        }
-        composable(route = NavigationState.Fail.route){//Pregunta incorrecta
-            Derrota(navController)
-        }
+
         //Elementos que necesitan el paso de información
         composable( //BIENVENIDA USUARIO
             route= NavigationState.WelcomeLogin.route,
@@ -56,34 +51,6 @@ fun Navigation_confi() {
             val userID = it.arguments?.getString("userID")
             if (userID != null) HomeScreen(navController, userID)
         }
-        composable( //TEMAS
-            route= NavigationState.Topics.route,
-            arguments = listOf(navArgument("classID"){type = NavType.StringType})
-        ){
-            val classID = it.arguments?.getString("classID")
-            if (classID != null) Temas_Clases(navController, classID)
-        }
-        composable( //ELECCIÓN (historial o quiz)
-            route= NavigationState.Selection.route,
-            arguments = listOf(navArgument("themeID"){type = NavType.StringType})
-        ){
-            val themeID = it.arguments?.getString("themeID")
-            if (themeID != null) Selection(navController, themeID)
-        }
-        composable( //HISTORIAL
-            route= NavigationState.History.route,
-            arguments = listOf(navArgument("themeID"){type = NavType.StringType})
-        ){
-            val themeID = it.arguments?.getString("themeID")
-            if (themeID != null) AnsweredQuestions(navController, themeID)
-        }
-        composable( //PREGUNTAS
-                route=NavigationState.Questions.route,
-                arguments = listOf(navArgument("themeID"){type = NavType.StringType})
-        ){
-        val themeID = it.arguments?.getString("themeID")
-        if (themeID != null) Preguntas(navController, themeID)
-        }
         composable( //PERFIL
             route= NavigationState.ProfilePage.route,
             arguments = listOf(navArgument("userID"){type = NavType.StringType})
@@ -91,9 +58,114 @@ fun Navigation_confi() {
             val userID = it.arguments?.getString("userID")
             if (userID != null) ProfilePage(navController, userID)
         }
-
+        composable( //TEMAS
+            route= NavigationState.Topics.route,
+            arguments = listOf(
+                navArgument("userID"){type = NavType.StringType},
+                navArgument("classID"){type = NavType.StringType})
+        ){
+            val userID = it.arguments?.getString("userID")
+            val classID = it.arguments?.getString("classID")
+            if (userID != null) {
+                if (classID != null) {
+                    Temas_Clases(navController, userID, classID)
+                }
+            }
+        }
+        composable( //ELECCIÓN (historial o quiz)
+            route= NavigationState.Selection.route,
+            arguments = listOf(
+                navArgument("userID"){type = NavType.StringType},
+                navArgument("classID"){type = NavType.StringType},
+                navArgument("themeID"){type = NavType.StringType})
+        ){
+            val userID = it.arguments?.getString("userID")
+            val classID = it.arguments?.getString("classID")
+            val themeID = it.arguments?.getString("themeID")
+            if (userID != null) {
+                if (classID != null) {
+                    if (themeID != null) {
+                        Selection(navController, userID, classID, themeID)
+                    }
+                }
+            }
+        }
+        composable( //HISTORIAL
+            route= NavigationState.History.route,
+            arguments = listOf(
+                navArgument("userID"){type = NavType.StringType},
+                navArgument("classID"){type = NavType.StringType},
+                navArgument("themeID"){type = NavType.StringType})
+        ){
+            val userID = it.arguments?.getString("userID")
+            val classID = it.arguments?.getString("classID")
+            val themeID = it.arguments?.getString("themeID")
+            if (userID != null) {
+                if (classID != null) {
+                    if (themeID != null) {
+                        AnsweredQuestions(navController, userID, classID, themeID)
+                    }
+                }
+            }
+        }
+        composable( //PREGUNTAS
+                route=NavigationState.Questions.route,
+                arguments = listOf(
+                    navArgument("userID"){type = NavType.StringType},
+                    navArgument("classID"){type = NavType.StringType},
+                    navArgument("themeID"){type = NavType.StringType},
+                    navArgument("questionID"){type = NavType.StringType})
+        ){
+            val userID = it.arguments?.getString("userID")
+            val classID = it.arguments?.getString("classID")
+            val themeID = it.arguments?.getString("themeID")
+            val questionID = it.arguments?.getString("questionID")
+            if (userID != null) {
+                if (classID != null) {
+                    if (themeID != null) {
+                        if (questionID != null) {
+                            Preguntas(navController, userID, classID, themeID, questionID)
+                        }
+                    }
+                }
+            }
+        }
+        composable(route = NavigationState.Congrats.route,
+            arguments = listOf(
+                    navArgument("userID"){type = NavType.StringType},
+                    navArgument("classID"){type = NavType.StringType},
+                    navArgument("themeID"){type = NavType.StringType},
+                    navArgument("questionID"){type = NavType.StringType})
+        ){//Pregunta correcta
+                val userID = it.arguments?.getString("userID")
+                val classID = it.arguments?.getString("classID")
+                val themeID = it.arguments?.getString("themeID")
+                val questionID = it.arguments?.getString("questionID")
+                if (userID != null) {
+                    if (classID != null) {
+                        if (themeID != null) {
+                            if (questionID != null) {
+                                Felicidades(navController, userID, classID, themeID, questionID)
+                            }
+        }}}}
+        composable(route = NavigationState.Fail.route,
+            arguments = listOf(
+                navArgument("userID"){type = NavType.StringType},
+                navArgument("classID"){type = NavType.StringType},
+                navArgument("themeID"){type = NavType.StringType},
+                navArgument("questionID"){type = NavType.StringType})
+        ){//Pregunta incorrecta
+            val userID = it.arguments?.getString("userID")
+            val classID = it.arguments?.getString("classID")
+            val themeID = it.arguments?.getString("themeID")
+            val questionID = it.arguments?.getString("questionID")
+            if (userID != null) {
+                if (classID != null) {
+                    if (themeID != null) {
+                        if (questionID != null) {
+                            Derrota(navController)
+        }}}}}
     }
-
 }
 
 /**

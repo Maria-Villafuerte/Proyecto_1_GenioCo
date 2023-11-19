@@ -15,7 +15,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -40,7 +39,7 @@ import com.example.proyecto_1.models.Temas
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun Temas_Clases(navController: NavController = rememberNavController(), classID: String="") {
+fun Temas_Clases(navController: NavController = rememberNavController(), userID: String="", classID: String="") {
     val Question_1 = Questions(
         "0","Matematicas", "¿Cuál es la derivada de x^2 con respecto de x",
         "2x",
@@ -48,8 +47,8 @@ fun Temas_Clases(navController: NavController = rememberNavController(), classID
             "2x", "x", "2", "1"
         )
     )
-    val Preugntas= listOf<Questions>(Question_1)
-    val tema_1 = Temas(Preguntas = Preugntas)
+    val Preguntas= listOf<Questions>(Question_1)
+    val tema_1 = Temas(Preguntas = Preguntas)
     val tema_2 = Temas(Portada = R.drawable.portada2_clase)
 
     //TEMAS
@@ -76,29 +75,26 @@ fun Temas_Clases(navController: NavController = rememberNavController(), classID
         parcial_1,parcial_2,parcial_3
     ) }
 
-    Scaffold {
-        TopAppBar(title = { Text(stringResource(R.string.titulo_temas)) }, modifier = Modifier
-            .padding(top = 60.dp))
+    Scaffold(
+        topBar = { AppBar(title = stringResource(R.string.titulo_temas), navController = navController, userID = userID) }) {
         LazyColumn(verticalArrangement = Arrangement.spacedBy(5.dp),
             modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp, top = 120.dp)){
+                .fillMaxSize()
+                .padding(20.dp, top = 100.dp)){
 
             items(allparciales){parciales ->
-                Row(parciales,navController)
+                Row(parciales,navController, userID, classID)
             }
         }
     }
-    AppBar(title = stringResource(R.string.parciales), navController = navController)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Row(parcial: Parciales = Parciales(),  navController: NavController){
+fun Row(parcial: Parciales = Parciales(),  navController: NavController, userID: String, classID: String){
     Text(text = parcial.Nombre)
     LazyRow{
-        items(parcial.temas) { Temas ->
-            TemaCard(Temas,navController)
+        items(parcial.temas) { tema ->
+            TemaCard(tema,navController, userID, classID)
         }
     }
 }
@@ -106,13 +102,13 @@ fun Row(parcial: Parciales = Parciales(),  navController: NavController){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TemaCard(tema: Temas = Temas(), navController: NavController){
+fun TemaCard(tema: Temas = Temas(), navController: NavController, userID: String, classID: String){
     Card(modifier = Modifier //Especificaciones para visibilidad de carta
         .clip(RoundedCornerShape(3.dp))
         .width(300.dp)
         .padding(end = 20.dp),
         onClick = {
-            navController.navigate(route = "Selection/" + tema.id)
+            navController.navigate(route = "Selection/$userID/$classID/" + tema.id)
         }
     ) {
         Text(text = tema.Nombre, fontSize = 15.sp,

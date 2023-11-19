@@ -12,16 +12,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.ExitToApp
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -46,6 +46,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.User
+import com.example.proyecto_1.navigation.AppBar
+import com.example.proyecto_1.navigation.NavigationState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable //Componente de ProfilePage
@@ -63,59 +65,74 @@ fun Editable(icon: ImageVector, text: String){
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfilePage(navController: NavController = rememberNavController(), userID: String = ""){
+fun ProfilePage(navController: NavController = rememberNavController(), userID: String = "") {
     val actualUser = User()
-
-    Column(verticalArrangement = Arrangement.Top,
-        modifier = Modifier.fillMaxSize()) {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .align(Alignment.CenterHorizontally)){
-            Image(painter = painterResource(id = actualUser.profileBack),
-                contentDescription = "Profile back",
-                contentScale = ContentScale.Crop, // Recorta la imagen,
+    Scaffold(
+        topBar = {
+            AppBar(
+                stringResource(R.string.titulo_homescreen),
+                navController = navController,
+                userID = userID
+            )
+        }) {
+        Column(
+            verticalArrangement = Arrangement.Top,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(300.dp))
-            Image(painter = painterResource(id = actualUser.profilePicture),
-                contentDescription = "profile picture",
-                modifier = Modifier
-                    .size(200.dp)
-                    .align(Alignment.BottomCenter) //Ubicación al centro y final
-                    .clip(CircleShape)
-            )
-            Text(
-                stringResource(R.string.usuario), color = Color.White,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter) //Ubicación al centro y final
-                    .padding(bottom = 20.dp), //Espaciado
-                fontSize = 20.sp, fontFamily = FontFamily.SansSerif,
-                fontWeight = FontWeight.ExtraBold)
-        }
-        //Elementos en lista
-        Editable(icon = Icons.Outlined.Person, text = stringResource(R.string.editar_usuario))
-        Editable(icon = Icons.Outlined.Lock, text = stringResource(R.string.editar_contraseña))
-        ListItem( //Elemento especial, contiene un botón switch en lugar de botón normal
-            headlineText = { Text(stringResource(R.string.notificaciones), fontSize = 15.sp) },
-            trailingContent = {
-                var checked by remember { mutableStateOf(true) }
-                Switch(
-                    checked = checked,
-                    onCheckedChange = {
-                        checked = it
-                    }
+                    .align(Alignment.CenterHorizontally)
+            ) {
+                Image(
+                    painter = painterResource(id = actualUser.profileBack),
+                    contentDescription = "Profile back",
+                    contentScale = ContentScale.Crop, // Recorta la imagen,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.dp)
                 )
-            },
-            leadingContent = { Icon(Icons.Outlined.Notifications, contentDescription = null) }
-        )
-        Editable(icon = Icons.Outlined.Edit, text = "titutlo_homesreen")
-    }
-    IconButton(onClick = { navController.navigateUp() }) {
-        Icon(
-            modifier = Modifier
-                .padding(top=16.dp, start = 7.dp),
-            imageVector = Icons.Rounded.ArrowBack,
-            contentDescription = "Localized description"
-        )
+                Image(
+                    painter = painterResource(id = actualUser.profilePicture),
+                    contentDescription = "profile picture",
+                    modifier = Modifier
+                        .size(200.dp)
+                        .align(Alignment.BottomCenter) //Ubicación al centro y final
+                        .clip(CircleShape)
+                )
+                Text(
+                    stringResource(R.string.usuario), color = Color.White,
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter) //Ubicación al centro y final
+                        .padding(bottom = 20.dp), //Espaciado
+                    fontSize = 20.sp, fontFamily = FontFamily.SansSerif,
+                    fontWeight = FontWeight.ExtraBold
+                )
+            }
+            //Elementos en lista
+            Editable(icon = Icons.Outlined.Person, text = stringResource(R.string.editar_usuario))
+            Editable(icon = Icons.Outlined.Lock, text = stringResource(R.string.editar_contraseña))
+            ListItem( //Elemento especial, contiene un botón switch en lugar de botón normal
+                headlineText = { Text(stringResource(R.string.notificaciones), fontSize = 15.sp) },
+                trailingContent = {
+                    var checked by remember { mutableStateOf(true) }
+                    Switch(
+                        checked = checked,
+                        onCheckedChange = {
+                            checked = it
+                        }
+                    )
+                },
+                leadingContent = { Icon(Icons.Outlined.Notifications, contentDescription = null) }
+            )
+            ListItem( //Creación de elemento para lista
+                headlineText = { Text(text = stringResource(R.string.salir), fontSize = 15.sp) }, //Texto titular
+                trailingContent = { //Elemento a la derecha del texto
+                    IconButton(onClick = {navController.navigate(route = NavigationState.Welcome.route)}) {
+                        Icon(Icons.Outlined.KeyboardArrowRight,  contentDescription = null) } },
+                //Elemento a la izquierda del texto
+                leadingContent = { Icon(Icons.Outlined.ExitToApp, contentDescription = null) }
+            )
+        }
     }
 }

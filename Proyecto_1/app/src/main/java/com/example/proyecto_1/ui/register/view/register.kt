@@ -29,7 +29,7 @@ fun RegisterScreen(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
-    var total_datos by remember { mutableStateOf("") }
+    var totaldatos by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -84,13 +84,13 @@ fun RegisterScreen(navController: NavController) {
         val context = LocalContext.current
         val openAlertDialog = remember { mutableStateOf(false) }
         val usersRef = database.reference.child("Usuarios")
-        val realtime: Realtime_Manager = Realtime_Manager()
+        val realtime = Realtime_Manager()
 
         usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 // El recuento total de nodos bajo "Usuarios"
                 val totalDatos = snapshot.childrenCount.toInt()
-                total_datos = (totalDatos + 1).toString()
+                totaldatos = (totalDatos + 1).toString()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -103,9 +103,9 @@ fun RegisterScreen(navController: NavController) {
         Button(
             onClick = {
 
-                val userID = total_datos
+                val userID = totaldatos
 
-                val usuario = User(id = total_datos,name=name,mail = email, password = password)
+                val usuario = User(id = totaldatos,name=name,mail = email, password = password)
                 //Guarda el dato como un hijo del total que se rige por id
                 if (usuario.name != "") {
                     realtime.addContact(usuario)
@@ -116,11 +116,7 @@ fun RegisterScreen(navController: NavController) {
                 else {
                     Toast.makeText(context, nodata , Toast.LENGTH_SHORT).show()
                 }
-
-
-
-                navController.navigate("welcome_login/$userID")
-                total_datos = ""
+                totaldatos = ""
                 email = ""
                 password = ""
                 name = ""
