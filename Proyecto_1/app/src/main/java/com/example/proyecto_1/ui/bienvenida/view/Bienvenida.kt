@@ -1,7 +1,7 @@
 package com.example.proyecto_1.ui.bienvenida.view
 
-import android.os.Handler
-import android.os.Looper
+import androidx.compose.runtime.LaunchedEffect
+import kotlinx.coroutines.delay
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,12 +15,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyecto_1.R
@@ -38,7 +38,8 @@ fun WelcomeScreen(navController: NavController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp, bottom = 80.dp),
+                .padding(dimensionResource(R.dimen.padding_small),
+                    bottom = dimensionResource(R.dimen.padding_extraB)),
             verticalArrangement = Arrangement.Bottom, // Alinea los elementos en la parte inferior
             horizontalAlignment = Alignment.Start // Alinea los elementos a la izquierda
         ) {
@@ -73,11 +74,9 @@ fun WelcomeLoginScreen(navController: NavController, userID: String) {
             color = Color(R.color.teal_700))
 
         // Aparecer por medio segundo y transicionar a la siguiente pantalla
-        val handler = Handler(Looper.getMainLooper())
-        val delayMillis: Long = 500 // 1 segundo
-
-        handler.postDelayed({
+        LaunchedEffect(Unit) {
+            delay(500) // Retraso de 500 milisegundos (0.5 segundos)
             navController.navigate(route = "HomeScreen/$userID")
-        }, delayMillis)
+        }
     }
 }

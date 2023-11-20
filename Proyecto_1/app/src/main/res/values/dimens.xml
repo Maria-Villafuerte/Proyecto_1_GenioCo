@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_Xsmall">5dp</dimen>
+    <dimen name="padding_small">10dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_big">20dp</dimen>
+    <dimen name="padding_Xbig">30dp</dimen>
+    <dimen name="padding_XXbig">40dp</dimen>
+    <dimen name="padding_XXXbig">50dp</dimen>
+    <dimen name="padding_extraB">80dp</dimen>
+
+    <dimen name="width_textBox">340dp</dimen>
+    <dimen name="width_Ansbutton">140dp</dimen>
+
+    <dimen name="height_button">50dp</dimen>
+    <dimen name="height_textbutton">40dp</dimen>
+    <dimen name="height_profileBack">300dp</dimen>
+    <dimen name="height_profilePic">200dp</dimen>
+    <dimen name="height_question">100dp</dimen>
+
+    <dimen name="roundClip">3dp</dimen>
+</resources>

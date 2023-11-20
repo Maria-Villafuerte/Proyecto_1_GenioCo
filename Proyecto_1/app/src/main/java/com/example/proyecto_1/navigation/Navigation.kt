@@ -163,7 +163,7 @@ fun Navigation_confi() {
                 if (classID != null) {
                     if (themeID != null) {
                         if (questionID != null) {
-                            Derrota(navController)
+                            Derrota(navController, userID, classID, themeID, questionID)
         }}}}}
     }
 }

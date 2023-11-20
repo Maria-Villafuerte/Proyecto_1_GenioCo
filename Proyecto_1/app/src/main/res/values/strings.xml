@@ -15,7 +15,12 @@
     <string name="correo">Correo Electrónico</string>
     <string name="contra">Contraseña</string>
     <string name="contra_1">¿Olvidaste tu contraseña?</string>
+
     <string name="titulo_homescreen">Tus clases</string>
+    <string name="titulo_temas">Temas:</string>
+    <string name="titulo_historial">Preguntas contestadas:</string>
+    <string name="titulo_perfil">Tu perfil:</string>
+
     <string name="usuario">Nombre de usuario</string>
 
     <string name="clases">No hay clases para mostrar</string>
@@ -40,6 +45,5 @@
     <string name="selection">¿Qué deseas revisar?</string>
     <string name="hisotrial">Historial</string>
     <string name="exam">Exámenes</string>
-    <string name="titulo_temas">Tus Temas:</string>
     <string name="parciales">Parciales</string>
 </resources>

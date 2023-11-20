@@ -22,12 +22,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -48,15 +48,15 @@ fun HomeScreen(navController: NavController = rememberNavController(), userID: S
                 Text(text = stringResource(id = R.string.clases),
                     modifier = Modifier
                         .align(Alignment.Center) //Ubicación al centro y final
-                        .padding(bottom = 20.dp), //Espaciado
+                        .padding(bottom = dimensionResource(R.dimen.padding_big)), //Espaciado
                     fontSize = 20.sp, fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight.ExtraBold)
             }
         } else{
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(5.dp),
+            LazyColumn(verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_Xsmall)),
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(20.dp)){
+                    .padding(dimensionResource(R.dimen.padding_big))){
                 item {
                     //Columna deslizable, con elementos generales de clases
                     TopAppBar(title = { Text(text = "")}) }
@@ -72,7 +72,7 @@ fun HomeScreen(navController: NavController = rememberNavController(), userID: S
 @Composable
 fun ClassCard(navController: NavController, userID: String = "", clase: Clase = Clase()){
     Card(modifier = Modifier //Especificaciones para visibilidad de carta
-        .clip(RoundedCornerShape(3.dp))
+        .clip(RoundedCornerShape(dimensionResource(R.dimen.roundClip)))
         .fillMaxWidth(),
         onClick = { navController.navigate(route = "Topics/$userID/" + clase.id)}) {
         Image(painter = painterResource(id = clase.Portada),
@@ -80,9 +80,9 @@ fun ClassCard(navController: NavController, userID: String = "", clase: Clase = 
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(10.dp)))
+                .clip(RoundedCornerShape(dimensionResource(R.dimen.padding_small))))
         Text(text = clase.Nombre, fontSize = 15.sp,
-            modifier=Modifier.padding(10.dp),
+            modifier=Modifier.padding(dimensionResource(R.dimen.padding_small)),
             fontWeight = FontWeight.Bold)
     }
 }

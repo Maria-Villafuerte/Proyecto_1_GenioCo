@@ -35,12 +35,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -70,7 +70,7 @@ fun ProfilePage(navController: NavController = rememberNavController(), userID: 
     Scaffold(
         topBar = {
             AppBar(
-                stringResource(R.string.titulo_homescreen),
+                stringResource(R.string.titulo_perfil),
                 navController = navController,
                 userID = userID
             )
@@ -90,13 +90,13 @@ fun ProfilePage(navController: NavController = rememberNavController(), userID: 
                     contentScale = ContentScale.Crop, // Recorta la imagen,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(300.dp)
+                        .height(dimensionResource(R.dimen.height_profileBack))
                 )
                 Image(
                     painter = painterResource(id = actualUser.profilePicture),
                     contentDescription = "profile picture",
                     modifier = Modifier
-                        .size(200.dp)
+                        .size(dimensionResource(R.dimen.height_profilePic))
                         .align(Alignment.BottomCenter) //Ubicación al centro y final
                         .clip(CircleShape)
                 )
@@ -104,7 +104,7 @@ fun ProfilePage(navController: NavController = rememberNavController(), userID: 
                     stringResource(R.string.usuario), color = Color.White,
                     modifier = Modifier
                         .align(Alignment.BottomCenter) //Ubicación al centro y final
-                        .padding(bottom = 20.dp), //Espaciado
+                        .padding(bottom = dimensionResource(R.dimen.padding_big)), //Espaciado
                     fontSize = 20.sp, fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight.ExtraBold
                 )

@@ -12,12 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -26,7 +26,7 @@ import com.example.proyecto_1.R
 @Preview
 @Composable
 fun Felicidades(navController: NavController = rememberNavController(),
-                userID: String="", classID: String="", themeID:String = "", preguntaID: String = "0"){
+                userID: String="", classID: String="", themeID:String = "", preguntaID: String = ""){
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.felicitaciones),
@@ -37,16 +37,16 @@ fun Felicidades(navController: NavController = rememberNavController(),
         Column ( modifier = Modifier.align(Alignment.Center)){
             Text(text = stringResource(R.string.felicidades),
                 fontSize = 25.sp, fontWeight = FontWeight.ExtraBold,
-                textAlign = TextAlign.Right, modifier = Modifier.width(140.dp))
+                textAlign = TextAlign.Right, modifier = Modifier.width(dimensionResource(R.dimen.width_Ansbutton)))
             Text(text = stringResource(R.string.feli_support),
                 fontSize = 15.sp, fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Right, modifier = Modifier.width(100.dp))
+                textAlign = TextAlign.Right, modifier = Modifier.width(dimensionResource(R.dimen.width_Ansbutton)))
         }
         val pregunta = preguntaID.toInt() +1
         val preguntaid = pregunta.toString()
         Button(onClick = {
             navController.navigate(route = "Questions/$userID/$classID/$themeID/$preguntaid") },
-            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 30.dp)) {
+            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = dimensionResource(R.dimen.padding_Xbig))) {
             Text(stringResource(R.string.siguiente))
         }
     }

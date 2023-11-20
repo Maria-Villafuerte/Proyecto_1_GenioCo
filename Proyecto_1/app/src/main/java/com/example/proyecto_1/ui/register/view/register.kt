@@ -7,9 +7,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyecto_1.Networking.Realtime_Manager
@@ -34,7 +34,7 @@ fun RegisterScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(dimensionResource(R.dimen.padding_medium)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally // Alinea los elementos a la izquierda
     ) {
@@ -56,8 +56,8 @@ fun RegisterScreen(navController: NavController) {
             onValueChange = {newText -> name = newText},
             label = {Text("Nombre Usuario") },
             modifier = Modifier
-                .width(350.dp)
-                .padding(5.dp)
+                .width(dimensionResource(R.dimen.width_textBox))
+                .padding(dimensionResource(R.dimen.padding_Xsmall))
         )
 
         OutlinedTextField(
@@ -65,8 +65,8 @@ fun RegisterScreen(navController: NavController) {
             onValueChange = {newText -> email = newText},
             label = {Text(stringResource(R.string.correo)) },
             modifier = Modifier
-                .width(350.dp)
-                .padding(5.dp)
+                .width(dimensionResource(R.dimen.width_textBox))
+                .padding(dimensionResource(R.dimen.padding_Xsmall))
         )
 
         OutlinedTextField(
@@ -74,12 +74,12 @@ fun RegisterScreen(navController: NavController) {
             onValueChange = { newText -> password = newText },
             label = { Text( stringResource(R.string.contra))},
             modifier = Modifier
-                .width(350.dp)
-                .padding(5.dp)
+                .width(dimensionResource(R.dimen.width_textBox))
+                .padding(dimensionResource(R.dimen.padding_Xsmall))
         )
         TextButton(onClick = { /*TODO*/ },
             modifier = Modifier.align(Alignment.End)
-                .height(40.dp))
+                .height(dimensionResource(R.dimen.padding_XXbig)))
         {Text(stringResource(R.string.contra_1)) }
         val context = LocalContext.current
         val openAlertDialog = remember { mutableStateOf(false) }
@@ -124,87 +124,16 @@ fun RegisterScreen(navController: NavController) {
                       },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
-                .width(350.dp)
-                .padding(5.dp)
+                .height(dimensionResource(R.dimen.padding_XXXbig))
+                .width(dimensionResource(R.dimen.width_textBox))
+                .padding(dimensionResource(R.dimen.padding_Xsmall))
         ) {
             Text(stringResource(R.string.registro))
         }
         TextButton(onClick = {navController.navigate(route = NavigationState.Login.route)},
             modifier = Modifier.align(Alignment.CenterHorizontally)
-                .height(40.dp))
+                .height(dimensionResource(R.dimen.padding_XXbig)))
         {Text(stringResource(R.string.cambio_inicio)) }
 
     }
 }
-
-//
-
-
-
-
-/*
-        if (openAlertDialog.value) {
-            AlertDialog(
-                icon = {
-                    Icon(Icons.Rounded.AccountCircle, contentDescription = "Example Icon")
-                },
-                title = {
-                    Text(text = "¿Como quieres que te llamemos?")
-                }        ,
-                text = {
-                    OutlinedTextField(
-                        value = name,
-                        onValueChange = { name = it },
-                        label = {Text("nombre") },
-                        modifier = Modifier
-                            .width(350.dp)
-                            .padding(5.dp)
-                    )
-                },
-                onDismissRequest = {
-                    openAlertDialog.value = false
-                },
-                confirmButton = {
-                    TextButton(
-                        onClick = {
-                            val updates = mapOf<String, Any>(
-                                "nombre" to name,
-                            )
-                            userRef_3.orderByChild("name").equalTo("name").addListenerForSingleValueEvent(
-                                object : ValueEventListener {
-                                    override fun onDataChange(snapshot: DataSnapshot) {
-                                        for (userSnapshot in snapshot.children) {
-                                            // Obtener la referencia del usuario específico
-                                            val userRef = userSnapshot.ref
-
-                                            // Actualizar los datos del usuario
-                                            userRef.updateChildren(updates)
-                                                .addOnSuccessListener {
-                                                    // La actualización fue exitosa
-                                                    Toast.makeText(context, "Nombre actualizado", Toast.LENGTH_SHORT).show()
-                                                }
-                                                .addOnFailureListener {
-                                                    // Hubo un error en la actualización
-                                                    Toast.makeText(context, "Error al actualizar el nombre", Toast.LENGTH_SHORT).show()
-                                                }
-                                        }
-                                    }
-
-                                    override fun onCancelled(error: DatabaseError) {
-                                        // Manejar la cancelación si es necesario
-                                    }
-                                })
-                            println("Confirmation registered")
-                            name=""
-                            //navController.navigate(route = "HomeScreen/${usuario.id}")
-                            openAlertDialog.value = false
-                        }
-                    ) {
-                        Text("Confirm")
-
-                    }
-                }
-            )
-        }
- */

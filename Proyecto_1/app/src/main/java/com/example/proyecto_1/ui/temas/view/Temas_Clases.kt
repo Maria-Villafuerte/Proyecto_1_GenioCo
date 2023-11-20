@@ -21,11 +21,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -40,47 +40,47 @@ import com.example.proyecto_1.models.Temas
 @Preview
 @Composable
 fun Temas_Clases(navController: NavController = rememberNavController(), userID: String="", classID: String="") {
-    val Question_1 = Questions(
+    val question1 = Questions(
         "0","Matematicas", "¿Cuál es la derivada de x^2 con respecto de x",
         "2x",
         listOf(
             "2x", "x", "2", "1"
         )
     )
-    val Preguntas= listOf<Questions>(Question_1)
-    val tema_1 = Temas(Preguntas = Preguntas)
-    val tema_2 = Temas(Portada = R.drawable.portada2_clase)
+    val preguntas= listOf<Questions>(question1)
+    val tema1 = Temas(Preguntas = preguntas)
+    val tema2 = Temas(Portada = R.drawable.portada2_clase)
 
     //TEMAS
-    val alltemas_1 = remember {
+    val alltemas1 = remember {
         mutableStateListOf(
-            tema_1, tema_1, tema_1, tema_1
+            tema1, tema1, tema1, tema1
         )
     }
-    val alltemas_2 = remember {
+    val alltemas2 = remember {
         mutableStateListOf(
-            tema_2, tema_2, tema_2, tema_2
+            tema2, tema2, tema2, tema2
         )
     }
     listOf<String>("AA","AA","WW")
 
 
     //PARCIALES
-    val parcial_1 = Parciales("1","Parcial 1", alltemas_1)
-    val parcial_2 = Parciales("2","Parcial 2", alltemas_2)
-    val parcial_3 = Parciales("3","Parcial 3", alltemas_1)
+    val parcial1 = Parciales("1","Parcial 1", alltemas1)
+    val parcial2 = Parciales("2","Parcial 2", alltemas2)
+    val parcial3 = Parciales("3","Parcial 3", alltemas1)
 
     //ARRAY QUE ENTRA A LAZY COLUMN
     val allparciales = remember { mutableStateListOf(
-        parcial_1,parcial_2,parcial_3
+        parcial1,parcial2,parcial3
     ) }
 
     Scaffold(
         topBar = { AppBar(title = stringResource(R.string.titulo_temas), navController = navController, userID = userID) }) {
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(5.dp),
+        LazyColumn(verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_Xsmall)),
             modifier = Modifier
                 .fillMaxSize()
-                .padding(20.dp, top = 100.dp)){
+                .padding(dimensionResource(R.dimen.padding_big), top = dimensionResource(R.dimen.height_question))){
 
             items(allparciales){parciales ->
                 Row(parciales,navController, userID, classID)
@@ -104,15 +104,15 @@ fun Row(parcial: Parciales = Parciales(),  navController: NavController, userID:
 @Composable
 fun TemaCard(tema: Temas = Temas(), navController: NavController, userID: String, classID: String){
     Card(modifier = Modifier //Especificaciones para visibilidad de carta
-        .clip(RoundedCornerShape(3.dp))
-        .width(300.dp)
-        .padding(end = 20.dp),
+        .clip(RoundedCornerShape(dimensionResource(R.dimen.roundClip)))
+        .width(dimensionResource(R.dimen.height_profileBack))
+        .padding(end = dimensionResource(R.dimen.padding_big)),
         onClick = {
             navController.navigate(route = "Selection/$userID/$classID/" + tema.id)
         }
     ) {
         Text(text = tema.Nombre, fontSize = 15.sp,
-            modifier=Modifier.padding(10.dp),
+            modifier=Modifier.padding(dimensionResource(R.dimen.padding_small)),
             fontWeight = FontWeight.Bold)
         Image(painter = painterResource(id = tema.Portada),
             contentDescription = "Portada ilustrativa",

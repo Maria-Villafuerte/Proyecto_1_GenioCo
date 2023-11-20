@@ -5,9 +5,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyecto_1.R
@@ -22,7 +22,7 @@ fun LoginScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(dimensionResource(R.dimen.padding_medium)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally // Alinea los elementos a la izquierda
     ) {
@@ -43,8 +43,8 @@ fun LoginScreen(navController: NavController) {
             onValueChange = { email = it },
             label = { Text(stringResource(R.string.correo)) },
             modifier = Modifier
-                .width(350.dp)
-                .padding(5.dp)
+                .width(dimensionResource(R.dimen.width_textBox))
+                .padding(dimensionResource(R.dimen.padding_Xsmall))
         )
 
         OutlinedTextField(
@@ -52,27 +52,27 @@ fun LoginScreen(navController: NavController) {
             onValueChange = { password = it },
             label = { Text(stringResource(R.string.contra))},
             modifier = Modifier
-                .width(350.dp)
-                .padding(5.dp)
+                .width(dimensionResource(R.dimen.width_textBox))
+                .padding(dimensionResource(R.dimen.padding_Xsmall))
         )
         TextButton(onClick = { /*TODO*/ },
             modifier = Modifier.align(Alignment.End)
-                .height(40.dp))
+                .height(dimensionResource(R.dimen.height_textbutton)))
         {Text(stringResource(R.string.contra_1)) }
         val userID = "abc"//PENDIENTE REVISAR OBTENCION DE ID DE USUARIO
         Button(
             onClick = {navController.navigate(route = "welcome_login/$userID")},
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
-                .width(350.dp)
-                .padding(5.dp)
+                .height(dimensionResource(R.dimen.height_button))
+                .width(dimensionResource(R.dimen.width_textBox))
+                .padding(dimensionResource(R.dimen.padding_Xsmall))
         ) {
             Text(text = stringResource(R.string.inicio))
         }
         TextButton(onClick = {navController.navigate(route = NavigationState.Register.route) },
             modifier = Modifier.align(Alignment.CenterHorizontally)
-                .height(40.dp))
+                .height(dimensionResource(R.dimen.height_textbutton)))
         {Text(stringResource(R.string.cambio_registro)) }
     }
 }
