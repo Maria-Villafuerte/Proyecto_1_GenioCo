@@ -6,13 +6,21 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.AddCircle
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -75,17 +83,31 @@ fun Temas_Clases(navController: NavController = rememberNavController(), userID:
         parcial1,parcial2,parcial3
     ) }
 
+
     Scaffold(
-        topBar = { AppBar(title = stringResource(R.string.titulo_temas), navController = navController, userID = userID) }) {
+        topBar = { AppBar(title = stringResource(R.string.titulo_temas), navController = navController, userID = userID) },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { /* acción al hacer clic en el botón */ }) {
+                Icon(Icons.Rounded.Add, contentDescription = "Localized description")
+            }
+        },
+        floatingActionButtonPosition = FabPosition.End, // opcional, puedes ajustar la posición según tus necesidades
+
+    ) {
+        FloatingActionButton(onClick = { /*do something*/ }) {
+            Icon(Icons.Filled.Favorite, contentDescription = "Localized description")
+        }
         LazyColumn(verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_Xsmall)),
             modifier = Modifier
                 .fillMaxSize()
-                .padding(dimensionResource(R.dimen.padding_big), top = dimensionResource(R.dimen.height_question))){
+                .padding(dimensionResource(R.dimen.padding_big), top = dimensionResource(R.dimen.padding_extraB))){
 
             items(allparciales){parciales ->
                 Row(parciales,navController, userID, classID)
             }
         }
+
     }
 }
 

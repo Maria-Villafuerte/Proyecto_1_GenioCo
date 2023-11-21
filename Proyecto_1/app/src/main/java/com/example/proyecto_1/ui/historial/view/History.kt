@@ -7,8 +7,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -38,7 +43,16 @@ fun AnsweredQuestions(navController: NavController = rememberNavController(), us
         defaultQ, defaultQ, defaultQ, defaultQ
     ) }
     Scaffold(
-        topBar = { AppBar(stringResource(R.string.titulo_hisotry), navController= navController, userID= userID) }) {
+        topBar = { AppBar(stringResource(R.string.titulo_hisotry), navController= navController, userID= userID) },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { /* acción al hacer clic en el botón */ }) {
+                Icon(Icons.Rounded.Add, contentDescription = "Localized description")
+            }
+        },
+        floatingActionButtonPosition = FabPosition.End, // opcional, puedes ajustar la posición según tus necesidades
+
+    ) {
         Column(modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))){
             TopAppBar(title = { Text(stringResource(R.string.titulo_hisotry))})
             LazyVerticalGrid(columns = GridCells.Fixed(2),

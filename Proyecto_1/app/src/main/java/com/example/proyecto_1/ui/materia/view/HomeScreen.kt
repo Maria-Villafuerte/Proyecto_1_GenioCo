@@ -10,8 +10,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -42,7 +47,15 @@ import com.example.proyecto_1.navigation.AppBar
 fun HomeScreen(navController: NavController = rememberNavController(), userID: String = ""){
     val allClasses = remember { mutableStateListOf<Clase>(Clase()) }
     Scaffold(
-        topBar = { AppBar(stringResource(R.string.titulo_homescreen), navController= navController, userID= userID) }) {
+        topBar = { AppBar(stringResource(R.string.titulo_homescreen), navController= navController, userID= userID) },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { /* acción al hacer clic en el botón */ }) {
+                Icon(Icons.Rounded.Add, contentDescription = "Localized description")
+            }
+        },
+        floatingActionButtonPosition = FabPosition.End, // opcional, puedes ajustar la posición según tus necesidades
+    ) {
         if(allClasses.isEmpty()){
             Box(modifier = Modifier.fillMaxSize()){
                 Text(text = stringResource(id = R.string.clases),

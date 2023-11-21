@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyecto_1.Networking.Realtime_Manager
@@ -25,7 +26,6 @@ import com.google.firebase.database.database
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(navController: NavController) {
-    val database = Firebase.database
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
@@ -83,10 +83,9 @@ fun RegisterScreen(navController: NavController) {
         {Text(stringResource(R.string.contra_1)) }
         val context = LocalContext.current
         val openAlertDialog = remember { mutableStateOf(false) }
-        val usersRef = database.reference.child("Usuarios")
         val realtime = Realtime_Manager()
 
-        usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        realtime.databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 // El recuento total de nodos bajo "Usuarios"
                 val totalDatos = snapshot.childrenCount.toInt()
@@ -102,14 +101,11 @@ fun RegisterScreen(navController: NavController) {
         val nodata = stringResource(R.string.noData)
         Button(
             onClick = {
-
                 val userID = totaldatos
-
                 val usuario = User(id = totaldatos,name=name,mail = email, password = password)
                 //Guarda el dato como un hijo del total que se rige por id
                 if (usuario.name != "") {
                     realtime.addContact(usuario)
-                  //  userRef.setValue(usuario)
                     Toast.makeText(context, savedUsertext , Toast.LENGTH_SHORT).show()
                     navController.navigate("welcome_login/$userID")
                 }
