@@ -149,7 +149,7 @@ fun prueba_datos(){
 @Preview
 @Composable
 fun prenas (){
-    var uruario_nuevo: User = User ("22123", "Pancho Guerra","pasdaso", "asdasd")
+    var uruario_nuevo: User = User ("0", "Pancho Guerra","pasdaso", "asdasd")
     var clase_nueva: Clase= Clase("7657", "Teatro")
     var Parcial_nuevo: Parciales= Parciales("1", "Parcial 1")
     var tema_nuevo: Temas= Temas("35", "La hisotria del arte")
