@@ -62,13 +62,17 @@ fun Navigation_confi() {
             route= NavigationState.Topics.route,
             arguments = listOf(
                 navArgument("userID"){type = NavType.StringType},
-                navArgument("classID"){type = NavType.StringType})
+                navArgument("classID"){type = NavType.StringType},
+                navArgument("quizID"){type = NavType.StringType})
         ){
             val userID = it.arguments?.getString("userID")
             val classID = it.arguments?.getString("classID")
+            val quizID = it.arguments?.getString("quizID")
             if (userID != null) {
                 if (classID != null) {
-                    Temas_Clases(navController, userID, classID)
+                    if (quizID != null) {
+                        Temas_Clases(navController, userID, classID, quizID)
+                    }
                 }
             }
         }
@@ -77,15 +81,17 @@ fun Navigation_confi() {
             arguments = listOf(
                 navArgument("userID"){type = NavType.StringType},
                 navArgument("classID"){type = NavType.StringType},
+                navArgument("quizID"){type = NavType.StringType},
                 navArgument("themeID"){type = NavType.StringType})
         ){
             val userID = it.arguments?.getString("userID")
             val classID = it.arguments?.getString("classID")
             val themeID = it.arguments?.getString("themeID")
+            val quizID = it.arguments?.getString("quizID")
             if (userID != null) {
                 if (classID != null) {
                     if (themeID != null) {
-                        Selection(navController, userID, classID, themeID)
+                        Selection(navController, userID, classID, quizID, themeID)
                     }
                 }
             }
@@ -95,15 +101,19 @@ fun Navigation_confi() {
             arguments = listOf(
                 navArgument("userID"){type = NavType.StringType},
                 navArgument("classID"){type = NavType.StringType},
+                navArgument("quizID"){type = NavType.StringType},
                 navArgument("themeID"){type = NavType.StringType})
         ){
             val userID = it.arguments?.getString("userID")
             val classID = it.arguments?.getString("classID")
             val themeID = it.arguments?.getString("themeID")
+            val quizID = it.arguments?.getString("quizID")
             if (userID != null) {
                 if (classID != null) {
                     if (themeID != null) {
-                        AnsweredQuestions(navController, userID, classID, themeID)
+                        if (quizID != null) {
+                            AnsweredQuestions(navController, userID, classID, quizID, themeID)
+                        }
                     }
                 }
             }
@@ -113,6 +123,7 @@ fun Navigation_confi() {
                 arguments = listOf(
                     navArgument("userID"){type = NavType.StringType},
                     navArgument("classID"){type = NavType.StringType},
+                    navArgument("quizID"){type = NavType.StringType},
                     navArgument("themeID"){type = NavType.StringType},
                     navArgument("questionID"){type = NavType.StringType})
         ){
@@ -120,11 +131,14 @@ fun Navigation_confi() {
             val classID = it.arguments?.getString("classID")
             val themeID = it.arguments?.getString("themeID")
             val questionID = it.arguments?.getString("questionID")
+            val quizID = it.arguments?.getString("quizID")
             if (userID != null) {
                 if (classID != null) {
                     if (themeID != null) {
                         if (questionID != null) {
-                            Preguntas(navController, userID, classID, themeID, questionID)
+                            if (quizID != null) {
+                                Preguntas(navController, userID, classID, quizID, themeID, questionID)
+                            }
                         }
                     }
                 }
@@ -134,6 +148,7 @@ fun Navigation_confi() {
             arguments = listOf(
                     navArgument("userID"){type = NavType.StringType},
                     navArgument("classID"){type = NavType.StringType},
+                    navArgument("quizID"){type = NavType.StringType},
                     navArgument("themeID"){type = NavType.StringType},
                     navArgument("questionID"){type = NavType.StringType})
         ){//Pregunta correcta
@@ -141,17 +156,21 @@ fun Navigation_confi() {
                 val classID = it.arguments?.getString("classID")
                 val themeID = it.arguments?.getString("themeID")
                 val questionID = it.arguments?.getString("questionID")
+                val quizID = it.arguments?.getString("quizID")
                 if (userID != null) {
                     if (classID != null) {
                         if (themeID != null) {
                             if (questionID != null) {
-                                Felicidades(navController, userID, classID, themeID, questionID)
+                                if (quizID != null) {
+                                    Felicidades(navController, userID, classID, quizID, themeID, questionID)
+                                }
                             }
         }}}}
         composable(route = NavigationState.Fail.route,
             arguments = listOf(
                 navArgument("userID"){type = NavType.StringType},
                 navArgument("classID"){type = NavType.StringType},
+                navArgument("quizID"){type = NavType.StringType},
                 navArgument("themeID"){type = NavType.StringType},
                 navArgument("questionID"){type = NavType.StringType})
         ){//Pregunta incorrecta
@@ -159,11 +178,14 @@ fun Navigation_confi() {
             val classID = it.arguments?.getString("classID")
             val themeID = it.arguments?.getString("themeID")
             val questionID = it.arguments?.getString("questionID")
+            val quizID = it.arguments?.getString("quizID")
             if (userID != null) {
                 if (classID != null) {
                     if (themeID != null) {
                         if (questionID != null) {
-                            Derrota(navController, userID, classID, themeID, questionID)
+                            if (quizID != null) {
+                                Derrota(navController, userID, classID, quizID, themeID, questionID)
+                            }
         }}}}}
     }
 }
