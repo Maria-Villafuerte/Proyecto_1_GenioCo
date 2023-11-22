@@ -28,20 +28,20 @@ class Realtime_Manager (userID: String= ""){
         }
     }
 
-    fun agregar_clase(usuario: User,clase: Clase){
-        databaseReference.child(usuario.id).child("Clases").child(clase.id).setValue(clase)
+    fun agregar_clase(usuario: String,clase: Clase){
+        databaseReference.child(usuario).child("Clases").child(clase.id).setValue(clase)
     }
 
-    fun agregar_parcial(usuario: User,clase: Clase,parcial: Parciales){
-        databaseReference.child(usuario.id).child("Clases").child(clase.id).child("Parciales").child(parcial.id).setValue(parcial)
+    fun agregar_parcial(usuario: String,clase: String,parcial: Parciales){
+        databaseReference.child(usuario).child("Clases").child(clase).child("Parciales").child(parcial.id).setValue(parcial)
     }
 
-    fun agregar_tema(usuario: User,clase: Clase,parcial: Parciales, temas: Temas){
-        databaseReference.child(usuario.id).child("Clases").child(clase.id).child("Parciales").child(parcial.id).child("Temas").child(temas.id).setValue(temas)
+    fun agregar_tema(usuario: String,clase: String,parcial: String, temas: Temas){
+        databaseReference.child(usuario).child("Clases").child(clase).child("Parciales").child(parcial).child("Temas").child(temas.id).setValue(temas)
     }
 
-    fun agregar_pregunta(usuario: User,clase: Clase,parcial: Parciales, temas: Temas, pregunta:Questions){
-        databaseReference.child(usuario.id).child("Clases").child(clase.id).child("Parciales").child(parcial.id).child("Temas").child(temas.id).child("Preguntas").child(pregunta.id).setValue(pregunta)
+    fun agregar_pregunta(usuario: String,clase: String,parcial: String, temas: String, pregunta:Questions){
+        databaseReference.child(usuario).child("Clases").child(clase).child("Parciales").child(parcial).child("Temas").child(temas).child("Preguntas").child(pregunta.id).setValue(pregunta)
     }
 
     fun addContact(usuario: User,clase_a_agregar: Clase = Clase("",""),parcial_a_agregar: Parciales = Parciales("",""),tema_a_agregar: Temas = Temas("","")) {
@@ -74,54 +74,3 @@ class Realtime_Manager (userID: String= ""){
 
     }
 
-/*
-*
-        // Guardar las clases (asumo que usuario.clases es una lista de Clase)
-        usuario.Clases?.let { clasesList ->
-            for (clase in clasesList) {
-                var parcailes_null: List<Parciales> = listOf()
-                parcailes_null += parcial_a_agregar
-                val clase_preuba: Clase = Clase(clase.id, clase.Nombre, parciales = parcailes_null)
-                databaseReference.child(usuario.id).child("Clases").child(clase.id)
-                    .setValue(clase_preuba)
-
-
-                //Guardar Parciales
-                clase.parciales?.let { parcialesList ->
-                    for (parcial in parcialesList) {
-                        var temas_null = parcial.temas
-                        temas_null += tema_a_agregar
-                        val parcuales_preuba: Parciales = Parciales(parcial.id, parcial.Nombre,)
-                        databaseReference.child(usuario.id).child("Clases").child(clase.id)
-                            .child("Parciales").child(parcial.id).setValue(parcuales_preuba)
-
-
-                        //Guardar temas
-                        parcial.temas?.let { temasList ->
-                            for (temas in temasList) {
-                                var preguntas: List<Questions> = listOf()
-                                val temas_prueba: Temas =
-                                    Temas(temas.id, temas.Nombre, Preguntas = preguntas)
-                                databaseReference.child(usuario.id).child("Clases").child(clase.id)
-                                    .child("Parciales").child(parcial.id).child("Temas")
-                                    .child(temas.id).setValue(temas_prueba)
-
-
-                                //Guardar temas
-                                temas.Preguntas?.let { preguntasList ->
-                                    for (pregunta in preguntasList) {
-                                        databaseReference.child(usuario.id).child("Clases")
-                                            .child(clase.id).child("Parciales").child(parcial.id)
-                                            .child("Temas").child(temas.id).setValue(pregunta)
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-
-                }
-            }
-        }
-*
-* */

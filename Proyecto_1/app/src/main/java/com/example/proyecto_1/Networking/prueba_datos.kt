@@ -162,8 +162,8 @@ fun prenas (){
     val rieal=Realtime_Manager ()
 
    rieal.addContact(uruario_nuevo)
-   rieal.agregar_clase(uruario_nuevo,clase_nueva)
-   rieal.agregar_parcial(uruario_nuevo,clase_nueva,Parcial_nuevo)
-   rieal.agregar_tema(uruario_nuevo,clase_nueva,Parcial_nuevo,tema_nuevo)
-   rieal.agregar_pregunta(uruario_nuevo,clase_nueva,Parcial_nuevo,tema_nuevo,pregutna_nueva)
+   //rieal.agregar_clase(uruario_nuevo,clase_nueva)
+  // rieal.agregar_parcial(uruario_nuevo,clase_nueva,Parcial_nuevo)
+  // rieal.agregar_tema(uruario_nuevo,clase_nueva,Parcial_nuevo,tema_nuevo)
+   //rieal.agregar_pregunta(uruario_nuevo,clase_nueva,Parcial_nuevo,tema_nuevo,pregutna_nueva)
 }
