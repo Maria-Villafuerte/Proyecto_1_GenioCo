@@ -51,7 +51,23 @@
     <string name="Agregar_clase1">Nombre de Clase</string>
     <string name="Agregar_clase2">Id de Clase</string>
     <string name="agregar">Agregar</string>
+    <string name="agregar1">Agregar Paciales</string>
+    <string name="agregar2">Agregar Tema</string>
 
+    <string name="Agregar_parcial">Agregar un parcial</string>
+    <string name="Agregar_parcial1">Nombre del Parcial</string>
+    <string name="Agregar_parcial2">Id del Parcial</string>
+
+    <string name="Agregar_tema">Agregar un Tema</string>
+    <string name="Agregar_tema1">Nombre del Tema</string>
+    <string name="Agregar_tema2">Id del Tema</string>
+    <string name="Agregar_tema3">Id Examen a agregar</string>
+
+    <string name="Agregar_pregunta">Agregar un Tema</string>
+    <string name="Agregar_pregunta1">"Id Pregunta"</string>
+    <string name="Agregar_pregunta2">"Pregunta"</string>
+    <string name="Agregar_pregunta3">"Respuesta correcta"</string>
+    <string name="Agregar_pregunta4">"Respuesta"</string>
 
 
 </resources>

@@ -51,6 +51,27 @@
     <string name="Agregar_clase1">Class name</string>
     <string name="Agregar_clase2">Class id</string>
     <string name="agregar">Add</string>
+    <string name="agregar1">Add Exams</string>
+    <string name="agregar2">Add Topics</string>
+
+    <string name="Agregar_parcial">Add exam</string>
+    <string name="Agregar_parcial1">Exam\'s Name</string>
+    <string name="Agregar_parcial2">Exam\'s Id</string>
+
+    <string name="Agregar_tema">Add Topic</string>
+    <string name="Agregar_tema1">Topic\'s Name</string>
+    <string name="Agregar_tema2">Topic\'s Id</string>
+    <string name="Agregar_tema3">Exam\'s Id to add</string>
+
+
+
+    <string name="Agregar_pregunta">Add Question</string>
+    <string name="Agregar_pregunta1">"Question Id"</string>
+    <string name="Agregar_pregunta2">"Question"</string>
+    <string name="Agregar_pregunta3">"Correct Answer"</string>
+    <string name="Agregar_pregunta4">"Other Answer"</string>
+
+
 
 
 </resources>

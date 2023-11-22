@@ -88,7 +88,7 @@ fun pop_up(userID: String,showDialog: Boolean, onDismiss: () -> Unit) {
                         modifier = Modifier
                             .padding(top = 10.dp)
                     ) {
-                        Text("Agregar", color = Color.Gray)
+                        Text((stringResource(R.string.agregar)), color = Color.Gray)
                     }
                 }
             }
