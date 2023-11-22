@@ -46,4 +46,12 @@
     <string name="hisotrial">Historial</string>
     <string name="exam">Exámenes</string>
     <string name="parciales">Parciales</string>
+
+    <string name="Agregar_clase">Agregar una clase</string>
+    <string name="Agregar_clase1">Nombre de Clase</string>
+    <string name="Agregar_clase2">Id de Clase</string>
+    <string name="agregar">Agregar</string>
+
+
+
 </resources>

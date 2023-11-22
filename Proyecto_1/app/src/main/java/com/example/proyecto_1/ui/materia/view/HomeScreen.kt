@@ -1,18 +1,13 @@
 package com.example.proyecto_1.ui.materia.view
 
 import android.annotation.SuppressLint
-import android.widget.Toast
-import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection.Companion.End
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -54,61 +49,44 @@ import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.Networking.Realtime_Manager
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.Clase
-import com.example.proyecto_1.models.User
 import com.example.proyecto_1.navigation.AppBar
 
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun pop_up(stro: Boolean,userID: String ) {
+fun pop_up(userID: String,showDialog: Boolean, onDismiss: () -> Unit) {
    val real = Realtime_Manager()
     var name by remember { mutableStateOf("") }
     var id by remember { mutableStateOf("") }
-    var pueba by remember { mutableStateOf(true) }
-    if (pueba) {
+    if (showDialog) {
         AlertDialog(
             onDismissRequest = {
-                pueba = false
+                onDismiss()
             },
-            title = { Text(text = "Agregar una clase") },
-            text = {
-                Text("Bienvenido a mi aplicación.")
-            },
+            title = { Text(stringResource(R.string.Agregar_clase)) },
             confirmButton = {
-                val context = LocalContext.current
                 Column() {
 
                     OutlinedTextField(
                         value = name,
                         onValueChange = {newText -> name = newText},
-                        label = {Text("Nombre Usuario") },
-                        modifier = Modifier
-                        //    .width(dimensionResource(R.dimen.height_button))
-                        //    .height(dimensionResource(R.dimen.padding_Xsmall))
-
+                        label = {Text(stringResource(R.string.Agregar_clase1) )}
                     )
 
                     OutlinedTextField(
                         value = id,
                         onValueChange = {newText -> id = newText},
-                        label = {Text(stringResource(R.string.correo)) },
-                        modifier = Modifier
-                        //    .height(dimensionResource(R.dimen.padding_Xsmall))
-                          //  .width(dimensionResource(R.dimen.height_button))
+                        label = {Text(stringResource(R.string.Agregar_clase2)) }
                     )
                     TextButton(
                         onClick = {
-                            var usairo_nuevo: Clase = Clase(id,name)
-                            pueba = false
+                            var usairo_nuevo: Clase = Clase(id, name)
                             real.agregar_clase(userID,usairo_nuevo)
+                            onDismiss()
                         },
                         modifier = Modifier
                             .padding(top = 10.dp)
-                        // .width(dimensionResource(R.dimen.height_button))
-                        //  .height(dimensionResource(R.dimen.padding_Xsmall))
-
-
                     ) {
                         Text("Agregar", color = Color.Gray)
                     }
@@ -116,14 +94,7 @@ fun pop_up(stro: Boolean,userID: String ) {
             }
         )
 
-        var new_clase: Clase = Clase(id,name)
-        real.agregar_clase(userID,new_clase)
     }
-    else{
-        Toast.makeText(LocalContext.current,"ASDA", Toast.LENGTH_SHORT).show()
-
-    }
-
 
 }
 
@@ -148,11 +119,11 @@ fun HomeScreen(navController: NavController = rememberNavController(), userID: S
         floatingActionButtonPosition = FabPosition.End, // opcional, puedes ajustar la posición según tus necesidades
     ) {
         if (showDialog) {
-            pop_up(showDialog,userID)
+            pop_up(userID,showDialog) {
+                showDialog = false
+            }
         }
-        else {
-            Toast.makeText(LocalContext.current,"dtttfg", Toast.LENGTH_SHORT).show()
-        }
+        //showDialog = false
         if(allClasses.isEmpty()){
             Box(modifier = Modifier.fillMaxSize()){
                 Text(text = stringResource(id = R.string.clases),

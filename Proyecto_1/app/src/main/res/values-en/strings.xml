@@ -47,4 +47,10 @@
     <string name="exam">Exams</string>
     <string name="parciales">Partial Exams</string>
 
+    <string name="Agregar_clase">Add Class</string>
+    <string name="Agregar_clase1">Class name</string>
+    <string name="Agregar_clase2">Class id</string>
+    <string name="agregar">Add</string>
+
+
 </resources>
