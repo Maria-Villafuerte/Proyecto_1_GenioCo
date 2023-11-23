@@ -1,7 +1,6 @@
 package com.example.proyecto_1.ui.temas.view
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,35 +8,25 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.AddCircle
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -50,53 +39,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.Networking.Realtime_Manager
 import com.example.proyecto_1.navigation.AppBar
 import com.example.proyecto_1.R
-import com.example.proyecto_1.models.Clase
 import com.example.proyecto_1.models.Parciales
-import com.example.proyecto_1.models.Questions
 import com.example.proyecto_1.models.Temas
+import com.example.proyecto_1.ui.temas.viewmodel.recoverQuizzes
+import com.example.proyecto_1.ui.temas.viewmodel.recoverTopics
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun Temas_Clases(navController: NavController = rememberNavController(), userID: String="", classID: String="") {
-    val parcialesLiveData = remember { MutableLiveData<List<Parciales>>() }
-    val realtime = Realtime_Manager()
-    val referenceParcial = realtime.databaseReference.child(userID).child("Clases").child(classID).child("Parciales")
+    val allparciales = recoverQuizzes(userID, classID)
 
-    // Obtener datos de Firebase
-    referenceParcial.get().addOnSuccessListener { dataSnapshot ->
-        val parciales = mutableListOf<Parciales>()
-        dataSnapshot.children.forEach { snapshot ->
-            val id = snapshot.child("id").value.toString()
-            val nombre = snapshot.child("nombre").value.toString()
-            val temas: List<Temas> = listOf()
-            val parcial = Parciales(id, nombre, temas)
-            parciales.add(parcial)
-        }
-        parcialesLiveData.value = parciales
-    }.addOnFailureListener { exception ->
-        Log.e("firebase", "Error getting data", exception)
-    }
-
-    // Observar el LiveData y usar los datos en la UI
-    val allparciales by parcialesLiveData.observeAsState(emptyList())
-
-    var showDialog_paciales by remember { mutableStateOf(false) }
-    var showDialog_temas by remember { mutableStateOf(false) }
+    var showDialogPaciales by remember { mutableStateOf(false) }
+    var showDialogTemas by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = { AppBar(title = stringResource(R.string.titulo_temas), navController = navController, userID = userID) },
         floatingActionButton = {
             Column (modifier = Modifier .padding(0.dp)){
                 FloatingActionButton(
-                    onClick = { showDialog_paciales = true },
+                    onClick = { showDialogPaciales = true },
                     modifier = Modifier
                         .width(200.dp)
                         .height(40.dp)
@@ -109,7 +77,7 @@ fun Temas_Clases(navController: NavController = rememberNavController(), userID:
                 }
 
                 FloatingActionButton(
-                    onClick = { showDialog_temas = true },
+                    onClick = { showDialogTemas = true },
                     modifier = Modifier
                         .width(200.dp)
                         .height(30.dp)
@@ -126,14 +94,14 @@ fun Temas_Clases(navController: NavController = rememberNavController(), userID:
         floatingActionButtonPosition = FabPosition.End, // opcional, puedes ajustar la posición según tus necesidades
 
     ) {
-        if (showDialog_paciales) {
-            pop_up_parciales(userID, classID,showDialog_paciales) {
-                showDialog_paciales = false
+        if (showDialogPaciales) {
+            pop_up_parciales(userID, classID,showDialogPaciales) {
+                showDialogPaciales = false
             }
         }
-        if (showDialog_temas) {
-            pop_up_temas(userID, classID,showDialog_temas) {
-                showDialog_temas = false
+        if (showDialogTemas) {
+            pop_up_temas(userID, classID,showDialogTemas) {
+                showDialogTemas = false
             }
         }
 
@@ -157,36 +125,15 @@ fun Temas_Clases(navController: NavController = rememberNavController(), userID:
 fun Row(parcial: Parciales = Parciales(),  navController: NavController, userID: String, classID: String){
     Text(text = parcial.Nombre + "\t id: " + parcial.id)
     val quizID = parcial.id
-    val temasLiveData = remember { MutableLiveData<List<Temas>>() }
-    val realtime = Realtime_Manager()
-    val referenceParcial = realtime.databaseReference.child(userID).child("Clases").child(classID).child("Parciales")
-    val referenceTemas = referenceParcial.child(quizID).child("Temas")
 
-    // Obtener datos de Firebase
-    referenceTemas.get().addOnSuccessListener { dataSnapshot ->
-        val temas = mutableListOf<Temas>()
-        dataSnapshot.children.forEach { snapshot ->
-            val id = snapshot.child("id").value.toString()
-            val nombre = snapshot.child("nombre").value.toString()
-            val portada = R.drawable.portada2_clase
-            val preguntas: List<Questions> = listOf()
-            val tema = Temas(id, nombre, portada, preguntas)
-            temas.add(tema)
-        }
-        temasLiveData.value = temas
-    }.addOnFailureListener { exception ->
-        Log.e("firebase", "Error getting data", exception)
-    }
-
-    val allTemas by temasLiveData.observeAsState(emptyList())
+    val allTemas = recoverTopics(userID, classID, quizID)
 
     LazyRow{
-        items(allTemas) { tema ->
-            TemaCard(tema,navController, userID, classID, quizID)
+        items(allTemas ?: listOf()) { tema: Temas ->
+            TemaCard(tema, navController, userID, classID, quizID)
         }
     }
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -226,7 +173,7 @@ fun pop_up_temas(userID: String, clase:String,showDialog: Boolean, onDismiss: ()
             },
             title = { Text(stringResource(R.string.Agregar_tema)) },
             confirmButton = {
-                Column() {
+                Column {
                     OutlinedTextField(
                         value = parcial,
                         onValueChange = {newText -> parcial = newText},
@@ -245,8 +192,8 @@ fun pop_up_temas(userID: String, clase:String,showDialog: Boolean, onDismiss: ()
                     )
                     TextButton(
                         onClick = {
-                            var tema_nuevo: Temas = Temas(id, name)
-                            real.agregar_tema(userID,clase,parcial,tema_nuevo)
+                            val temaNuevo = Temas(id, name)
+                            real.agregar_tema(userID,clase,parcial,temaNuevo)
                             onDismiss()
                         },
                         modifier = Modifier
@@ -275,7 +222,7 @@ fun pop_up_parciales(userID: String, clase:String,showDialog: Boolean, onDismiss
             },
             title = { Text(stringResource(R.string.Agregar_parcial)) },
             confirmButton = {
-                Column() {
+                Column {
 
                     OutlinedTextField(
                         value = name,
@@ -290,8 +237,8 @@ fun pop_up_parciales(userID: String, clase:String,showDialog: Boolean, onDismiss
                     )
                     TextButton(
                         onClick = {
-                            var parcial_nuevo: Parciales = Parciales(id, name)
-                            real.agregar_parcial(userID,clase,parcial_nuevo)
+                            val parcialNuevo= Parciales(id, name)
+                            real.agregar_parcial(userID,clase,parcialNuevo)
                             onDismiss()
                         },
                         modifier = Modifier

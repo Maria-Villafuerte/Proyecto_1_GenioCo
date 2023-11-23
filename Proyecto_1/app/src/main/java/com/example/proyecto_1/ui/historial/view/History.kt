@@ -1,7 +1,6 @@
 package com.example.proyecto_1.ui.historial.view
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -22,10 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -38,7 +34,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.Networking.Realtime_Manager
@@ -52,43 +47,16 @@ import com.example.proyecto_1.ui.historial.viewmodel.recoverQuestionsH
 @Preview
 @Composable
 fun AnsweredQuestions(navController: NavController = rememberNavController(), userID: String="0", classID: String="7657", quizID: String="1", themeID: String = "35"){
-    val preguntasLiveData = remember { MutableLiveData<List<Questions>>() }
-    val realtime = Realtime_Manager()
-    val referenceParcial = realtime.databaseReference.child(userID).child("Clases").child(classID).child("Parciales")
-    val referencePreguntas = referenceParcial.child(quizID).child("Temas").child(themeID).child("Preguntas")
 
-    // Obtener datos de Firebase
-    referencePreguntas.get().addOnSuccessListener { dataSnapshot ->
-        val preguntas = mutableListOf<Questions>()
-        dataSnapshot.children.forEach { snapshot ->
-            val id = snapshot.child("id").value.toString()
-            val respuesta = snapshot.child("respuesta").value.toString()
-            val pregunta0 = snapshot.child("pregunta").value.toString()
+    val allQuestions = recoverQuestionsH(userID, classID, quizID, themeID)
 
-            val opcion1 = snapshot.child("opciones").child("0").value.toString()
-            val opcion2 = snapshot.child("opciones").child("1").value.toString()
-            val opcion3 = snapshot.child("opciones").child("2").value.toString()
-            val opcion4 = snapshot.child("opciones").child("3").value.toString()
-            val opciones = listOf(opcion1, opcion2, opcion3, opcion4)
-
-            val pregunta = Questions(id, "", pregunta0, respuesta, opciones)
-            preguntas.add(pregunta)
-        }
-        preguntasLiveData.value = preguntas
-    }.addOnFailureListener { exception ->
-        Log.e("firebase", "Error getting data", exception)
-    }
-
-    // Observar el LiveData y usar los datos en la UI
-    val allQuestions by preguntasLiveData.observeAsState(emptyList())
-
-    var showDialog_pregunta by remember { mutableStateOf(false) }
+    var showDialogPregunta by remember { mutableStateOf(false) }
     Scaffold(
         topBar = { AppBar(stringResource(R.string.titulo_hisotry), navController= navController, userID= userID) },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    showDialog_pregunta = true
+                    showDialogPregunta = true
                 }) {
                 Icon(Icons.Rounded.Add, contentDescription = "Localized description")
             }
@@ -96,9 +64,9 @@ fun AnsweredQuestions(navController: NavController = rememberNavController(), us
         floatingActionButtonPosition = FabPosition.End, // opcional, puedes ajustar la posición según tus necesidades
 
     ) {
-        if (showDialog_pregunta) {
-            pop_up_pregunta(userID,classID,quizID,themeID,showDialog_pregunta) {
-                showDialog_pregunta = false
+        if (showDialogPregunta) {
+            pop_up_pregunta(userID,classID,quizID,themeID,showDialogPregunta) {
+                showDialogPregunta = false
             }
         }
         Column(modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))){
@@ -131,7 +99,7 @@ fun pop_up_pregunta(userID: String,clase:String,pacial:String,tema:String,showDi
     var respuesta2 by remember { mutableStateOf("") }
     var respuesta3 by remember { mutableStateOf("") }
     var respuesta4 by remember { mutableStateOf("") }
-    var array_opciones: MutableList<String> = mutableListOf()
+    val arrayOpciones: MutableList<String> = mutableListOf()
     var id by remember { mutableStateOf("") }
     if (showDialog) {
         AlertDialog(
@@ -140,7 +108,7 @@ fun pop_up_pregunta(userID: String,clase:String,pacial:String,tema:String,showDi
             },
             title = { Text(stringResource(R.string.Agregar_pregunta)) },
             confirmButton = {
-                Column() {
+                Column {
                     OutlinedTextField(
                         value = id,
                         onValueChange = {newText -> id = newText},
@@ -174,12 +142,12 @@ fun pop_up_pregunta(userID: String,clase:String,pacial:String,tema:String,showDi
 
                     TextButton(
                         onClick = {
-                            array_opciones.add(respuesta1)
-                            array_opciones.add(respuesta2)
-                            array_opciones.add(respuesta3)
-                            array_opciones.add(respuesta4)
-                            var presunta_nueva: Questions = Questions(id,"", pregunta,respuesta1,array_opciones)
-                            real.agregar_pregunta(userID,clase,pacial,tema,presunta_nueva)
+                            arrayOpciones.add(respuesta1)
+                            arrayOpciones.add(respuesta2)
+                            arrayOpciones.add(respuesta3)
+                            arrayOpciones.add(respuesta4)
+                            val preguntaNueva = Questions(id,"", pregunta,respuesta1,arrayOpciones)
+                            real.agregar_pregunta(userID,clase,pacial,tema,preguntaNueva)
                             onDismiss()
                         },
                         modifier = Modifier

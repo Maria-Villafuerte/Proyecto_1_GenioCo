@@ -10,18 +10,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyecto_1.Networking.Realtime_Manager
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.User
 import com.example.proyecto_1.navigation.NavigationState
-import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.database
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,7 +1,6 @@
 package com.example.proyecto_1.ui.preguntas.view
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.runtime.LaunchedEffect
 import kotlinx.coroutines.delay
 import androidx.compose.foundation.Image
@@ -18,9 +17,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,12 +28,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.proyecto_1.Networking.Realtime_Manager
 import com.example.proyecto_1.R
-import com.example.proyecto_1.models.Questions
+import com.example.proyecto_1.ui.preguntas.viewmodel.recoverQuestions
 import com.example.proyecto_1.ui.theme.Blue
 import com.example.proyecto_1.ui.theme.Bluetone
 import com.example.proyecto_1.ui.theme.Green
@@ -49,37 +43,9 @@ import com.example.proyecto_1.ui.theme.Yellow
 @Composable
 fun Preguntas(navController: NavController = rememberNavController(),
               userID: String="0", classID: String="7657", quizID: String="1", themeID: String = "35", preguntaID: String = "0") {
-    val preguntasLiveData = remember { MutableLiveData<List<Questions>>() }
-    val realtime = Realtime_Manager()
-    val referenceParcial = realtime.databaseReference.child(userID).child("Clases").child(classID).child("Parciales")
-    val referencePreguntas = referenceParcial.child(quizID).child("Temas").child(themeID).child("Preguntas")
+    val allQuestions = recoverQuestions(userID, classID, quizID, themeID)
 
-    // Obtener datos de Firebase
-    referencePreguntas.get().addOnSuccessListener { dataSnapshot ->
-        val preguntas = mutableListOf<Questions>()
-        dataSnapshot.children.forEach { snapshot ->
-            val id = snapshot.child("id").value.toString()
-            val respuesta = snapshot.child("respuesta").value.toString()
-            val pregunta0 = snapshot.child("pregunta").value.toString()
-
-            val opcion1 = snapshot.child("opciones").child("0").value.toString()
-            val opcion2 = snapshot.child("opciones").child("1").value.toString()
-            val opcion3 = snapshot.child("opciones").child("2").value.toString()
-            val opcion4 = snapshot.child("opciones").child("3").value.toString()
-            val opciones = listOf(opcion1, opcion2, opcion3, opcion4)
-
-            val pregunta = Questions(id, "", pregunta0, respuesta, opciones)
-            preguntas.add(pregunta)
-        }
-        preguntasLiveData.value = preguntas
-    }.addOnFailureListener { exception ->
-        Log.e("firebase", "Error getting data", exception)
-    }
-
-    // Observar el LiveData y usar los datos en la UI
-    val allQuestions by preguntasLiveData.observeAsState(emptyList())
-
-    if (allQuestions == null || preguntaID.toInt() >= allQuestions.size){
+    if (allQuestions.isEmpty() || preguntaID.toInt() >= allQuestions.size){
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Image(
                 painter = painterResource(id = R.drawable.fondo),

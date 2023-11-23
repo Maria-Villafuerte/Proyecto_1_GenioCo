@@ -26,7 +26,7 @@ import com.example.proyecto_1.R
 @Preview
 @Composable
 fun Felicidades(navController: NavController = rememberNavController(),
-                userID: String="", classID: String="", quizID: String="", themeID:String = "", questionID: String = ""){
+                userID: String="", classID: String="", quizID: String="", themeID:String = "", questID: String = ""){
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.felicitaciones),
@@ -42,7 +42,7 @@ fun Felicidades(navController: NavController = rememberNavController(),
                 fontSize = 15.sp, fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Right, modifier = Modifier.width(dimensionResource(R.dimen.width_Ansbutton)))
         }
-        val pregunta = questionID.toInt() +1
+        val pregunta = questID.toInt() +1
         val questionID = pregunta.toString()
         Button(onClick = {
             navController.navigate(route = "Questions/$userID/$classID/$quizID/$themeID/$questionID") },
