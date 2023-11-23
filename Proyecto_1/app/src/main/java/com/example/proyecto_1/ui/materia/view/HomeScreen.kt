@@ -50,13 +50,12 @@ import com.example.proyecto_1.Networking.Realtime_Manager
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.Clase
 import com.example.proyecto_1.navigation.AppBar
-
+import com.example.proyecto_1.ui.materia.viewmodel.recoverClasses
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun pop_up(userID: String,showDialog: Boolean, onDismiss: () -> Unit) {
-   val real = Realtime_Manager()
+fun pop_up(userID: String,showDialog: Boolean, onDismiss: () -> Unit) { val real = Realtime_Manager()
     var name by remember { mutableStateOf("") }
     var id by remember { mutableStateOf("") }
     if (showDialog) {
@@ -103,7 +102,7 @@ fun pop_up(userID: String,showDialog: Boolean, onDismiss: () -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController = rememberNavController(), userID: String = ""){
-    val allClasses = remember { mutableStateListOf<Clase>(Clase()) }
+    val allClasses = recoverClasses(userID)
     var showDialog by remember { mutableStateOf(false) }
 
     Scaffold(
