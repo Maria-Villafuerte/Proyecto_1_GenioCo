@@ -16,7 +16,7 @@ import com.example.proyecto_1.navigation.NavigationState
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavController) {
-    var email by remember { mutableStateOf("") }
+    var id by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
     Column(
@@ -39,9 +39,9 @@ fun LoginScreen(navController: NavController) {
         )
 
         OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text(stringResource(R.string.correo)) },
+            value = id,
+            onValueChange = { id = it },
+            label = { Text(stringResource(R.string.login_id)) },
             modifier = Modifier
                 .width(dimensionResource(R.dimen.width_textBox))
                 .padding(dimensionResource(R.dimen.padding_Xsmall))
@@ -60,7 +60,7 @@ fun LoginScreen(navController: NavController) {
                 .height(dimensionResource(R.dimen.height_textbutton)))
         {Text(stringResource(R.string.contra_1)) }
         Button(
-            onClick = {navController.navigate(route = "welcome_login/$email")},
+            onClick = {navController.navigate(route = "welcome_login/$id")},
             modifier = Modifier
                 .fillMaxWidth()
                 .height(dimensionResource(R.dimen.height_button))

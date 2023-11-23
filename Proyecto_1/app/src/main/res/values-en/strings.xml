@@ -16,6 +16,8 @@
     <string name="correo">Email</string>
     <string name="contra">Password</string>
     <string name="contra_1">Forgot Your Password?</string>
+    <string name="login_id">Id</string>
+
 
     <string name="titulo_homescreen">Your Classes</string>
     <string name="titulo_temas">Topics:</string>

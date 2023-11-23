@@ -107,6 +107,8 @@ fun RegisterScreen(navController: NavController) {
                 if (usuario.name != "") {
                     realtime.addContact(usuario)
                     Toast.makeText(context, savedUsertext , Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Tu Id es: $userID", Toast.LENGTH_SHORT).show()
+
                     navController.navigate("welcome_login/$userID")
                 }
                 else {

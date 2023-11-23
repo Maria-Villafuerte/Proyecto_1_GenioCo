@@ -68,6 +68,8 @@
     <string name="Agregar_pregunta2">"Pregunta"</string>
     <string name="Agregar_pregunta3">"Respuesta correcta"</string>
     <string name="Agregar_pregunta4">"Respuesta"</string>
+    <string name="login_id">Id</string>
+
 
 
 </resources>
