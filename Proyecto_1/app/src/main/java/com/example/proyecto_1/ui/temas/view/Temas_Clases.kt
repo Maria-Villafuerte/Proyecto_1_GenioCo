@@ -76,8 +76,8 @@ fun Temas_Clases(navController: NavController = rememberNavController(), userID:
         dataSnapshot.children.forEach { snapshot ->
             val id = snapshot.child("id").value.toString()
             val nombre = snapshot.child("nombre").value.toString()
-            val temas = snapshot.child("temas").value as ArrayList<Temas>
-            val parcial = Parciales(id, nombre, temas.toList())
+            val temas: List<Temas> = listOf()
+            val parcial = Parciales(id, nombre, temas)
             parciales.add(parcial)
         }
         parcialesLiveData.value = parciales
@@ -155,7 +155,7 @@ fun Temas_Clases(navController: NavController = rememberNavController(), userID:
 
 @Composable
 fun Row(parcial: Parciales = Parciales(),  navController: NavController, userID: String, classID: String){
-    Text(text = parcial.Nombre)
+    Text(text = parcial.Nombre + "\t id: " + parcial.id)
     val quizID = parcial.id
     val temasLiveData = remember { MutableLiveData<List<Temas>>() }
     val realtime = Realtime_Manager()
@@ -169,8 +169,8 @@ fun Row(parcial: Parciales = Parciales(),  navController: NavController, userID:
             val id = snapshot.child("id").value.toString()
             val nombre = snapshot.child("nombre").value.toString()
             val portada = R.drawable.portada2_clase
-            val preguntas = snapshot.child("preguntas").value as ArrayList<Questions>
-            val tema = Temas(id, nombre, portada,preguntas.toList() )
+            val preguntas: List<Questions> = listOf()
+            val tema = Temas(id, nombre, portada, preguntas)
             temas.add(tema)
         }
         temasLiveData.value = temas

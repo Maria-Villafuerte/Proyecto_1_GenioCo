@@ -61,8 +61,14 @@ fun Preguntas(navController: NavController = rememberNavController(),
             val id = snapshot.child("id").value.toString()
             val respuesta = snapshot.child("respuesta").value.toString()
             val pregunta0 = snapshot.child("pregunta").value.toString()
-            val opciones = snapshot.child("opciones").value as ArrayList<String>
-            val pregunta = Questions(id, "", pregunta0, respuesta, opciones.toList())
+
+            val opcion1 = snapshot.child("opciones").child("0").value.toString()
+            val opcion2 = snapshot.child("opciones").child("1").value.toString()
+            val opcion3 = snapshot.child("opciones").child("2").value.toString()
+            val opcion4 = snapshot.child("opciones").child("3").value.toString()
+            val opciones = listOf(opcion1, opcion2, opcion3, opcion4)
+
+            val pregunta = Questions(id, "", pregunta0, respuesta, opciones)
             preguntas.add(pregunta)
         }
         preguntasLiveData.value = preguntas
@@ -73,8 +79,7 @@ fun Preguntas(navController: NavController = rememberNavController(),
     // Observar el LiveData y usar los datos en la UI
     val allQuestions by preguntasLiveData.observeAsState(emptyList())
 
-    var pregunta = allQuestions[preguntaID.toInt()]
-    if (preguntaID.toInt() > allQuestions.size){
+    if (allQuestions == null || preguntaID.toInt() >= allQuestions.size){
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Image(
                 painter = painterResource(id = R.drawable.fondo),
@@ -94,11 +99,7 @@ fun Preguntas(navController: NavController = rememberNavController(),
             }
         }
     }else {
-        for (q in allQuestions) {
-            if (preguntaID == q.id) {
-                pregunta = q
-            }
-        }
+        val pregunta = allQuestions[preguntaID.toInt()]
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -132,7 +133,7 @@ fun Preguntas(navController: NavController = rememberNavController(),
                         .align(Alignment.Center)
                         .padding(start = dimensionResource(R.dimen.padding_small),
                             end = dimensionResource(R.dimen.padding_small)),
-                    onClick = { navController.navigate("felicidad/$userID/$classID/$quizID/$themeID/$preguntaID") })
+                    onClick = { })
 
             }
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))

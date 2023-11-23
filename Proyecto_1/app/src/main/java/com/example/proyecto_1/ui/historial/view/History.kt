@@ -64,8 +64,14 @@ fun AnsweredQuestions(navController: NavController = rememberNavController(), us
             val id = snapshot.child("id").value.toString()
             val respuesta = snapshot.child("respuesta").value.toString()
             val pregunta0 = snapshot.child("pregunta").value.toString()
-            val opciones = snapshot.child("opciones").value as ArrayList<String>
-            val pregunta = Questions(id, "", pregunta0, respuesta, opciones.toList())
+
+            val opcion1 = snapshot.child("opciones").child("0").value.toString()
+            val opcion2 = snapshot.child("opciones").child("1").value.toString()
+            val opcion3 = snapshot.child("opciones").child("2").value.toString()
+            val opcion4 = snapshot.child("opciones").child("3").value.toString()
+            val opciones = listOf(opcion1, opcion2, opcion3, opcion4)
+
+            val pregunta = Questions(id, "", pregunta0, respuesta, opciones)
             preguntas.add(pregunta)
         }
         preguntasLiveData.value = preguntas
@@ -91,7 +97,7 @@ fun AnsweredQuestions(navController: NavController = rememberNavController(), us
 
     ) {
         if (showDialog_pregunta) {
-            pop_up_pregunta(userID,classID,classID,themeID,showDialog_pregunta) {
+            pop_up_pregunta(userID,classID,quizID,themeID,showDialog_pregunta) {
                 showDialog_pregunta = false
             }
         }

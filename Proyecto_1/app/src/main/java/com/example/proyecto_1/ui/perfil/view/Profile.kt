@@ -61,11 +61,11 @@ fun Editable(icon: ImageVector, text: String){
         leadingContent = { Icon(icon, contentDescription = null) }
     )
 }
-@Preview
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfilePage(navController: NavController = rememberNavController(), userID: String = "0") {
+fun ProfilePage(navController: NavController = rememberNavController(), userID: String) {
     val actualUser = recoverUser(userID)
     Scaffold(
         topBar = {
@@ -101,7 +101,7 @@ fun ProfilePage(navController: NavController = rememberNavController(), userID: 
                         .clip(CircleShape)
                 )
                 Text(
-                    text = actualUser.name, color = Color.White,
+                    text = stringResource(R.string.usuario), color = Color.White,
                     modifier = Modifier
                         .align(Alignment.BottomCenter) //Ubicación al centro y final
                         .padding(bottom = dimensionResource(R.dimen.padding_big)), //Espaciado
