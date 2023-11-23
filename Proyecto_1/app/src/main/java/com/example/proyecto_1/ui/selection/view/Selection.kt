@@ -56,7 +56,7 @@ fun Selection(navController: NavController = rememberNavController(), userID: St
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_small)))
             Button(
-                onClick = { navController.navigate(route = "historial/$userID/$classID/$themeID") },
+                onClick = { navController.navigate(route = "historial/$userID/$classID/$quizID/$themeID") },
                 modifier = Modifier
                     .width(dimensionResource(R.dimen.height_profileBack))
                     .padding(dimensionResource(R.dimen.padding_small)),
@@ -72,7 +72,7 @@ fun Selection(navController: NavController = rememberNavController(), userID: St
                 Text(text = "\t" + stringResource(R.string.hisotrial), textAlign = TextAlign.Center)
             }
             Button(
-                onClick = { navController.navigate(route = "Questions/$userID/$classID/$themeID/0") },
+                onClick = { navController.navigate(route = "Questions/$userID/$classID/$quizID/$themeID/0") },
                 modifier = Modifier
                     .width(dimensionResource(R.dimen.height_profileBack))
                     .padding(dimensionResource(R.dimen.padding_small)),

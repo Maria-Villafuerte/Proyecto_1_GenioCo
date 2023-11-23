@@ -1,6 +1,7 @@
 package com.example.proyecto_1.ui.preguntas.view
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.runtime.LaunchedEffect
 import kotlinx.coroutines.delay
 import androidx.compose.foundation.Image
@@ -17,6 +18,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,37 +32,49 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.proyecto_1.Networking.Realtime_Manager
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.Questions
-import com.example.proyecto_1.ui.preguntas.viewmodel.recoverQuestions
 import com.example.proyecto_1.ui.theme.Blue
 import com.example.proyecto_1.ui.theme.Bluetone
 import com.example.proyecto_1.ui.theme.Green
 import com.example.proyecto_1.ui.theme.Grey
 import com.example.proyecto_1.ui.theme.Red
 import com.example.proyecto_1.ui.theme.Yellow
-
-val Preguntas_guardadas = arrayListOf(Questions( //Prueba
-    "1","Matematicas", "¿Cuál es la derivada de x^2 con respecto de x?",
-    "2x",
-    listOf(
-        "2x", "x", "2", "1"
-    )), Questions("2","Lenguaje", "¿Cómo se escribe?",
-    "Vaca",
-    listOf(
-        "Baca", "Vaca", "Ninguna de las anteriores"
-    )))
-
 @Preview
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Preguntas(navController: NavController = rememberNavController(),
               userID: String="0", classID: String="7657", quizID: String="1", themeID: String = "35", preguntaID: String = "0") {
-    val preguntasTODAS = recoverQuestions(userID, classID, quizID, themeID)
-    var pregunta = Questions()
-    if (preguntaID.toInt() > Preguntas_guardadas.size){
+    val preguntasLiveData = remember { MutableLiveData<List<Questions>>() }
+    val realtime = Realtime_Manager()
+    val referenceParcial = realtime.databaseReference.child(userID).child("Clases").child(classID).child("Parciales")
+    val referencePreguntas = referenceParcial.child(quizID).child("Temas").child(themeID).child("Preguntas")
+
+    // Obtener datos de Firebase
+    referencePreguntas.get().addOnSuccessListener { dataSnapshot ->
+        val preguntas = mutableListOf<Questions>()
+        dataSnapshot.children.forEach { snapshot ->
+            val id = snapshot.child("id").value.toString()
+            val respuesta = snapshot.child("respuesta").value.toString()
+            val pregunta0 = snapshot.child("pregunta").value.toString()
+            val opciones = snapshot.child("opciones").value as ArrayList<String>
+            val pregunta = Questions(id, "", pregunta0, respuesta, opciones.toList())
+            preguntas.add(pregunta)
+        }
+        preguntasLiveData.value = preguntas
+    }.addOnFailureListener { exception ->
+        Log.e("firebase", "Error getting data", exception)
+    }
+
+    // Observar el LiveData y usar los datos en la UI
+    val allQuestions by preguntasLiveData.observeAsState(emptyList())
+
+    var pregunta = allQuestions[preguntaID.toInt()]
+    if (preguntaID.toInt() > allQuestions.size){
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Image(
                 painter = painterResource(id = R.drawable.fondo),
@@ -78,7 +94,7 @@ fun Preguntas(navController: NavController = rememberNavController(),
             }
         }
     }else {
-        for (q in Preguntas_guardadas) {
+        for (q in allQuestions) {
             if (preguntaID == q.id) {
                 pregunta = q
             }
@@ -116,7 +132,7 @@ fun Preguntas(navController: NavController = rememberNavController(),
                         .align(Alignment.Center)
                         .padding(start = dimensionResource(R.dimen.padding_small),
                             end = dimensionResource(R.dimen.padding_small)),
-                    onClick = { navController.navigate("felicidad/$userID/$classID/$themeID/$preguntaID") })
+                    onClick = { navController.navigate("felicidad/$userID/$classID/$quizID/$themeID/$preguntaID") })
 
             }
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))
@@ -131,9 +147,9 @@ fun Preguntas(navController: NavController = rememberNavController(),
                             .padding(start = dimensionResource(R.dimen.padding_XXbig), end = dimensionResource(R.dimen.padding_XXbig))
                             .clickable {
                                 if (opciones == pregunta.respuesta) {
-                                    navController.navigate("felicidad/$userID/$classID/$themeID/$preguntaID")
+                                    navController.navigate("felicidad/$userID/$classID/$quizID/$themeID/$preguntaID")
                                 } else {
-                                    navController.navigate("Derrota/$userID/$classID/$themeID/$preguntaID")
+                                    navController.navigate("Derrota/$userID/$classID/$quizID/$themeID/$preguntaID")
                                 }
                             }
                     ) {

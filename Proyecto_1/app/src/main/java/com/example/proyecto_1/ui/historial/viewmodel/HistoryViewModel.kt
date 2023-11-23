@@ -8,7 +8,7 @@ import java.util.HashMap
 
 @Preview
 @Composable
-fun recoverQuestionsH(userID: String="0", classID: String="7657", quizID: String= "1", themeID: String = "35") {
+fun recoverQuestionsH(userID: String="0", classID: String="7657", quizID: String= "1", themeID: String = "35"): List<HashMap<String?, Any?>> {
     val realtime = Realtime_Manager()
     var preguntas = listOf<HashMap<String?, Any?>>()
     val referenceParcial = realtime.databaseReference.child(userID).child("Clases").child(classID).child("Parciales")
@@ -32,4 +32,5 @@ fun recoverQuestionsH(userID: String="0", classID: String="7657", quizID: String
                 Log.e("TAG", "Error writing to database", exception)
             }
     }
+    return preguntas
 }

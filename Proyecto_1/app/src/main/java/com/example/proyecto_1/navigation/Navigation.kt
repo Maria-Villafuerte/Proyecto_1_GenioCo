@@ -62,17 +62,13 @@ fun Navigation_confi() {
             route= NavigationState.Topics.route,
             arguments = listOf(
                 navArgument("userID"){type = NavType.StringType},
-                navArgument("classID"){type = NavType.StringType},
-                navArgument("quizID"){type = NavType.StringType})
+                navArgument("classID"){type = NavType.StringType})
         ){
             val userID = it.arguments?.getString("userID")
             val classID = it.arguments?.getString("classID")
-            val quizID = it.arguments?.getString("quizID")
             if (userID != null) {
                 if (classID != null) {
-                    if (quizID != null) {
-                        Temas_Clases(navController, userID, classID, quizID)
-                    }
+                    Temas_Clases(navController, userID, classID)
                 }
             }
         }

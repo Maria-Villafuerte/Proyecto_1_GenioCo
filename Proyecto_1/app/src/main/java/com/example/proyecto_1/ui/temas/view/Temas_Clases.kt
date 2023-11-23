@@ -1,6 +1,7 @@
 package com.example.proyecto_1.ui.temas.view
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,6 +32,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,6 +50,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.Networking.Realtime_Manager
@@ -62,41 +65,28 @@ import com.example.proyecto_1.models.Temas
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun Temas_Clases(navController: NavController = rememberNavController(), userID: String="", classID: String="", quizID: String="") {
-    val question1 = Questions(
-        "0","Matematicas", "¿Cuál es la derivada de x^2 con respecto de x",
-        "2x",
-        listOf(
-            "2x", "x", "2", "1"
-        )
-    )
-    val preguntas= listOf<Questions>(question1)
-    val tema1 = Temas(Preguntas = preguntas)
-    val tema2 = Temas(Portada = R.drawable.portada2_clase)
+fun Temas_Clases(navController: NavController = rememberNavController(), userID: String="", classID: String="") {
+    val parcialesLiveData = remember { MutableLiveData<List<Parciales>>() }
+    val realtime = Realtime_Manager()
+    val referenceParcial = realtime.databaseReference.child(userID).child("Clases").child(classID).child("Parciales")
 
-    //TEMAS
-    val alltemas1 = remember {
-        mutableStateListOf(
-            tema1, tema1, tema1, tema1
-        )
+    // Obtener datos de Firebase
+    referenceParcial.get().addOnSuccessListener { dataSnapshot ->
+        val parciales = mutableListOf<Parciales>()
+        dataSnapshot.children.forEach { snapshot ->
+            val id = snapshot.child("id").value.toString()
+            val nombre = snapshot.child("nombre").value.toString()
+            val temas = snapshot.child("temas").value as ArrayList<Temas>
+            val parcial = Parciales(id, nombre, temas.toList())
+            parciales.add(parcial)
+        }
+        parcialesLiveData.value = parciales
+    }.addOnFailureListener { exception ->
+        Log.e("firebase", "Error getting data", exception)
     }
-    val alltemas2 = remember {
-        mutableStateListOf(
-            tema2, tema2, tema2, tema2
-        )
-    }
-    listOf<String>("AA","AA","WW")
 
-
-    //PARCIALES
-    val parcial1 = Parciales("1","Parcial 1", alltemas1)
-    val parcial2 = Parciales("2","Parcial 2", alltemas2)
-    val parcial3 = Parciales("3","Parcial 3", alltemas1)
-
-    //ARRAY QUE ENTRA A LAZY COLUMN
-    val allparciales = remember { mutableStateListOf(
-        parcial1,parcial2,parcial3
-    ) }
+    // Observar el LiveData y usar los datos en la UI
+    val allparciales by parcialesLiveData.observeAsState(emptyList())
 
     var showDialog_paciales by remember { mutableStateOf(false) }
     var showDialog_temas by remember { mutableStateOf(false) }
@@ -166,9 +156,33 @@ fun Temas_Clases(navController: NavController = rememberNavController(), userID:
 @Composable
 fun Row(parcial: Parciales = Parciales(),  navController: NavController, userID: String, classID: String){
     Text(text = parcial.Nombre)
+    val quizID = parcial.id
+    val temasLiveData = remember { MutableLiveData<List<Temas>>() }
+    val realtime = Realtime_Manager()
+    val referenceParcial = realtime.databaseReference.child(userID).child("Clases").child(classID).child("Parciales")
+    val referenceTemas = referenceParcial.child(quizID).child("Temas")
+
+    // Obtener datos de Firebase
+    referenceTemas.get().addOnSuccessListener { dataSnapshot ->
+        val temas = mutableListOf<Temas>()
+        dataSnapshot.children.forEach { snapshot ->
+            val id = snapshot.child("id").value.toString()
+            val nombre = snapshot.child("nombre").value.toString()
+            val portada = R.drawable.portada2_clase
+            val preguntas = snapshot.child("preguntas").value as ArrayList<Questions>
+            val tema = Temas(id, nombre, portada,preguntas.toList() )
+            temas.add(tema)
+        }
+        temasLiveData.value = temas
+    }.addOnFailureListener { exception ->
+        Log.e("firebase", "Error getting data", exception)
+    }
+
+    val allTemas by temasLiveData.observeAsState(emptyList())
+
     LazyRow{
-        items(parcial.temas) { tema ->
-            TemaCard(tema,navController, userID, classID)
+        items(allTemas) { tema ->
+            TemaCard(tema,navController, userID, classID, quizID)
         }
     }
 }
@@ -176,13 +190,13 @@ fun Row(parcial: Parciales = Parciales(),  navController: NavController, userID:
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TemaCard(tema: Temas = Temas(), navController: NavController, userID: String, classID: String){
+fun TemaCard(tema: Temas = Temas(), navController: NavController, userID: String, classID: String, quizID: String){
     Card(modifier = Modifier //Especificaciones para visibilidad de carta
         .clip(RoundedCornerShape(dimensionResource(R.dimen.roundClip)))
         .width(dimensionResource(R.dimen.height_profileBack))
         .padding(end = dimensionResource(R.dimen.padding_big)),
         onClick = {
-            navController.navigate(route = "Selection/$userID/$classID/" + tema.id)
+            navController.navigate(route = "Selection/$userID/$classID/$quizID/" + tema.id)
         }
     ) {
         Text(text = tema.Nombre, fontSize = 15.sp,

@@ -1,6 +1,7 @@
 package com.example.proyecto_1.ui.historial.view
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -23,6 +24,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.Networking.Realtime_Manager
@@ -49,14 +52,31 @@ import com.example.proyecto_1.ui.historial.viewmodel.recoverQuestionsH
 @Preview
 @Composable
 fun AnsweredQuestions(navController: NavController = rememberNavController(), userID: String="0", classID: String="7657", quizID: String="1", themeID: String = "35"){
-    val real = Realtime_Manager()
-    recoverQuestionsH()
+    val preguntasLiveData = remember { MutableLiveData<List<Questions>>() }
+    val realtime = Realtime_Manager()
+    val referenceParcial = realtime.databaseReference.child(userID).child("Clases").child(classID).child("Parciales")
+    val referencePreguntas = referenceParcial.child(quizID).child("Temas").child(themeID).child("Preguntas")
 
-    val defaultQ = Questions()
+    // Obtener datos de Firebase
+    referencePreguntas.get().addOnSuccessListener { dataSnapshot ->
+        val preguntas = mutableListOf<Questions>()
+        dataSnapshot.children.forEach { snapshot ->
+            val id = snapshot.child("id").value.toString()
+            val respuesta = snapshot.child("respuesta").value.toString()
+            val pregunta0 = snapshot.child("pregunta").value.toString()
+            val opciones = snapshot.child("opciones").value as ArrayList<String>
+            val pregunta = Questions(id, "", pregunta0, respuesta, opciones.toList())
+            preguntas.add(pregunta)
+        }
+        preguntasLiveData.value = preguntas
+    }.addOnFailureListener { exception ->
+        Log.e("firebase", "Error getting data", exception)
+    }
+
+    // Observar el LiveData y usar los datos en la UI
+    val allQuestions by preguntasLiveData.observeAsState(emptyList())
+
     var showDialog_pregunta by remember { mutableStateOf(false) }
-    val allQuestions = remember { mutableStateListOf(
-        defaultQ, defaultQ, defaultQ, defaultQ
-    ) }
     Scaffold(
         topBar = { AppBar(stringResource(R.string.titulo_hisotry), navController= navController, userID= userID) },
         floatingActionButton = {
