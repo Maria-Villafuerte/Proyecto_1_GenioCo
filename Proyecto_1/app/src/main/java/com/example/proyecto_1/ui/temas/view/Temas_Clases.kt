@@ -62,7 +62,7 @@ import com.example.proyecto_1.models.Temas
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun Temas_Clases(navController: NavController = rememberNavController(), userID: String="", classID: String="") {
+fun Temas_Clases(navController: NavController = rememberNavController(), userID: String="", classID: String="", quizID: String="") {
     val question1 = Questions(
         "0","Matematicas", "¿Cuál es la derivada de x^2 con respecto de x",
         "2x",

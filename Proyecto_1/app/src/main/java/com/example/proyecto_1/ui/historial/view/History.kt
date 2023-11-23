@@ -3,7 +3,6 @@ package com.example.proyecto_1.ui.historial.view
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -22,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -40,16 +40,18 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.Networking.Realtime_Manager
 import com.example.proyecto_1.R
-import com.example.proyecto_1.models.Clase
 import com.example.proyecto_1.models.Questions
 import com.example.proyecto_1.navigation.AppBar
-import com.example.proyecto_1.ui.materia.view.pop_up
+import com.example.proyecto_1.ui.historial.viewmodel.recoverQuestionsH
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun AnsweredQuestions(navController: NavController = rememberNavController(), userID: String="", classID: String="", themeID: String = ""){
+fun AnsweredQuestions(navController: NavController = rememberNavController(), userID: String="0", classID: String="7657", quizID: String="1", themeID: String = "35"){
+    val real = Realtime_Manager()
+    recoverQuestionsH()
+
     val defaultQ = Questions()
     var showDialog_pregunta by remember { mutableStateOf(false) }
     val allQuestions = remember { mutableStateListOf(

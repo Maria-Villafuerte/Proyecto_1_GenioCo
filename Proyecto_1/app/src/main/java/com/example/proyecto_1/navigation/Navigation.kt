@@ -91,7 +91,9 @@ fun Navigation_confi() {
             if (userID != null) {
                 if (classID != null) {
                     if (themeID != null) {
-                        Selection(navController, userID, classID, quizID, themeID)
+                        if (quizID != null) {
+                            Selection(navController, userID, classID, quizID, themeID)
+                        }
                     }
                 }
             }

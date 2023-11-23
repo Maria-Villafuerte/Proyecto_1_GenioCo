@@ -26,7 +26,7 @@ import com.example.proyecto_1.R
 @Preview
 @Composable
 fun Felicidades(navController: NavController = rememberNavController(),
-                userID: String="", classID: String="", themeID:String = "", preguntaID: String = ""){
+                userID: String="", classID: String="", quizID: String="", themeID:String = "", preguntaID: String = ""){
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.felicitaciones),

@@ -1,6 +1,7 @@
 package com.example.proyecto_1.ui.materia.view
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,7 +27,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -35,7 +36,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -44,13 +44,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.Networking.Realtime_Manager
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.Clase
+import com.example.proyecto_1.models.Parciales
 import com.example.proyecto_1.navigation.AppBar
-import com.example.proyecto_1.ui.materia.viewmodel.recoverClasses
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -65,7 +66,7 @@ fun pop_up(userID: String,showDialog: Boolean, onDismiss: () -> Unit) { val real
             },
             title = { Text(stringResource(R.string.Agregar_clase)) },
             confirmButton = {
-                Column() {
+                Column {
 
                     OutlinedTextField(
                         value = name,
@@ -80,8 +81,8 @@ fun pop_up(userID: String,showDialog: Boolean, onDismiss: () -> Unit) { val real
                     )
                     TextButton(
                         onClick = {
-                            var usairo_nuevo: Clase = Clase(id, name)
-                            real.agregar_clase(userID,usairo_nuevo)
+                            val usuarioNuevo = Clase(id, name)
+                            real.agregar_clase(userID,usuarioNuevo)
                             onDismiss()
                         },
                         modifier = Modifier
@@ -102,7 +103,28 @@ fun pop_up(userID: String,showDialog: Boolean, onDismiss: () -> Unit) { val real
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController = rememberNavController(), userID: String = ""){
-    val allClasses = recoverClasses(userID)
+    val classesLiveData = remember { MutableLiveData<List<Clase>>() }
+    val realtime = Realtime_Manager()
+    val reference = realtime.databaseReference.child(userID).child("Clases")
+    // Obtener datos de Firebase
+    reference.get().addOnSuccessListener { dataSnapshot ->
+        val classes = mutableListOf<Clase>()
+        dataSnapshot.children.forEach { snapshot ->
+            val id = snapshot.child("id").value.toString()
+            val nombre = snapshot.child("nombre").value.toString()
+            val portada = R.drawable.portada_clase
+            val parciales: List<Parciales> = listOf()
+            val clase = Clase(id, nombre, portada, parciales)
+            classes.add(clase)
+        }
+        classesLiveData.value = classes
+    }.addOnFailureListener { exception ->
+        Log.e("firebase", "Error getting data", exception)
+    }
+
+    // Observar el LiveData y usar los datos en la UI
+    val allClasses by classesLiveData.observeAsState(emptyList())
+
     var showDialog by remember { mutableStateOf(false) }
 
     Scaffold(

@@ -40,7 +40,7 @@ import com.example.proyecto_1.ui.theme.Bluetone
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun Selection(navController: NavController = rememberNavController(), userID: String="", classID: String="", themeID: String = "") {
+fun Selection(navController: NavController = rememberNavController(), userID: String="", classID: String="", quizID: String="", themeID: String = "") {
     Scaffold(
         topBar = { AppBar("", navController = navController, userID = userID) }
     ) {

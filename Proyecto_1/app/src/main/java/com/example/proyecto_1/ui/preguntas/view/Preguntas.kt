@@ -26,11 +26,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyecto_1.R
 import com.example.proyecto_1.models.Questions
+import com.example.proyecto_1.ui.preguntas.viewmodel.recoverQuestions
 import com.example.proyecto_1.ui.theme.Blue
 import com.example.proyecto_1.ui.theme.Bluetone
 import com.example.proyecto_1.ui.theme.Green
@@ -49,10 +51,12 @@ val Preguntas_guardadas = arrayListOf(Questions( //Prueba
         "Baca", "Vaca", "Ninguna de las anteriores"
     )))
 
+@Preview
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Preguntas(navController: NavController = rememberNavController(),
-              userID: String="", classID: String="", themeID: String = "", preguntaID: String = "0") {
+              userID: String="0", classID: String="7657", quizID: String="1", themeID: String = "35", preguntaID: String = "0") {
+    val preguntasTODAS = recoverQuestions(userID, classID, quizID, themeID)
     var pregunta = Questions()
     if (preguntaID.toInt() > Preguntas_guardadas.size){
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

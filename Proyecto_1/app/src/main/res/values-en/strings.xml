@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Project_1</string>
+    <string name="app_name">GenioCo</string>
     <string name="bienvenido">Welcome</string>
     <string name="inicio">Sign In</string>
     <string name="registro">Register</string>
@@ -19,7 +19,7 @@
 
     <string name="titulo_homescreen">Your Classes</string>
     <string name="titulo_temas">Topics:</string>
-    <string name="titulo_historial">Answered Questions:</string>
+    <string name="titulo_historial">Questions:</string>
     <string name="titulo_perfil">Your Profile:</string>
 
     <string name="usuario">Username</string>
@@ -43,8 +43,8 @@
 
     <string name="datos_1">Enter Your Details</string>
     <string name="selection">What do you want to review?</string>
-    <string name="hisotrial">History</string>
-    <string name="exam">Exams</string>
+    <string name="hisotrial">All Questions</string>
+    <string name="exam">Exam</string>
     <string name="parciales">Partial Exams</string>
 
     <string name="Agregar_clase">Add Class</string>

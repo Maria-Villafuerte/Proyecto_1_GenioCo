@@ -59,9 +59,8 @@ fun LoginScreen(navController: NavController) {
             modifier = Modifier.align(Alignment.End)
                 .height(dimensionResource(R.dimen.height_textbutton)))
         {Text(stringResource(R.string.contra_1)) }
-        val userID = "abc"//PENDIENTE REVISAR OBTENCION DE ID DE USUARIO
         Button(
-            onClick = {navController.navigate(route = "welcome_login/$userID")},
+            onClick = {navController.navigate(route = "welcome_login/$email")},
             modifier = Modifier
                 .fillMaxWidth()
                 .height(dimensionResource(R.dimen.height_button))
